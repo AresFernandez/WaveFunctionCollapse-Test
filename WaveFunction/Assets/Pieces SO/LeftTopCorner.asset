@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
+  m_Name: LeftTopCorner
+  m_EditorClassIdentifier: 
+  GOprefab: {fileID: 7476000824778536107, guid: 9027388dae6651842a2f76d81eff408b, type: 3}
+  topPieces:
+  - {fileID: 11400000, guid: 9f39db156d04f1246bd63d0ad1d1f776, type: 2}
+  botPieces:
+  - {fileID: 11400000, guid: cb1d74f17d7976a409a00ec0784926c9, type: 2}
+  - {fileID: 11400000, guid: 45523c782708b5c478366e3a6ea66f07, type: 2}
+  rightPieces:
+  - {fileID: 11400000, guid: c7d8eb5f5bc371d4ea579472263fbc24, type: 2}
+  - {fileID: 11400000, guid: 650917681841627419c1e5b16ca94f6f, type: 2}
+  - {fileID: 11400000, guid: cb1d74f17d7976a409a00ec0784926c9, type: 2}
+  leftPieces:
+  - {fileID: 11400000, guid: 9f39db156d04f1246bd63d0ad1d1f776, type: 2}
+  - {fileID: 11400000, guid: ca39ef760751a6e4e8ddc0ec572e1c64, type: 2}
+  - {fileID: 11400000, guid: 650917681841627419c1e5b16ca94f6f, type: 2}
