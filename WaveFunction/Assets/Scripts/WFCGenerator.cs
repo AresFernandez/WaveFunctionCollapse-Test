@@ -20,14 +20,22 @@ public class WFCGenerator : MonoBehaviour
             nonCollapsedCells.Add(cellPositions[i], new List<PieceInfo>(piecesOnGeneration));
         }
 
-        CollapseCell(grid.GetRandomPosition());
+        SelectPiece(grid.GetRandomPosition());
 
     }
 
-    void CollapseCell(Vector3 cellPosition)
+    void SelectPiece(Vector3 cellPosition)
     {
-        PieceInfo pieceToCollapse = nonCollapsedCells[cellPosition][Random.Range(0, nonCollapsedCells[cellPosition].Count)];
-        Debug.Log(pieceToCollapse.name);
+        PieceInfo selectedPiece = nonCollapsedCells[cellPosition][Random.Range(0, nonCollapsedCells[cellPosition].Count)];
+        nonCollapsedCells[cellPosition].Clear();
+        nonCollapsedCells[cellPosition].Add(selectedPiece);
+        InstantiatePiece(cellPosition, selectedPiece.GOprefab);
+        nonCollapsedCells.Remove(cellPosition);
+    }
+
+    void InstantiatePiece(Vector3 cellPosition, GameObject piece)
+    {
+        Instantiate<GameObject>(piece, cellPosition, Quaternion.identity, transform);
     }
 
 }
