@@ -40,8 +40,24 @@ public class WFCGenerator : MonoBehaviour
             nonCollapsedCells.Add(cellPositions[i], new List<PieceInfo>(piecesOnGeneration));
         }
 
+        // We select the first cell randomly because at the begginning they have all the same entropy
         SelectPiece(grid.GetRandomPosition());
 
+        // We keep collapsing cells priorizing those with the lowest entropy
+        int safeCounter = 0;
+        while (nonCollapsedCells.Count > 0)
+        {
+            safeCounter++;
+            if (safeCounter >= 1000)
+            {
+                Debug.LogError("Maximum iterations reached");
+            }
+            Vector3 lowestEntropyCell = SearchForLowerEntropy();
+            if (nonCollapsedCells.Count > 0)
+            {
+                SelectPiece(lowestEntropyCell);
+            }
+        }
     }
 
     void SelectPiece(Vector3 cellPosition)
@@ -86,8 +102,6 @@ public class WFCGenerator : MonoBehaviour
         }
         nonCollapsedCells.Remove(cellPosition);
 
-        SearchForLowerEntropy();
-        
     }
 
     void InstantiatePiece(Vector3 cellPosition, GameObject piece)
@@ -97,7 +111,7 @@ public class WFCGenerator : MonoBehaviour
 
     void Propagate(CellLink affectedCell)
     {
-        Debug.Log("Affected Cell: " + affectedCell.cellPosition + " has " + nonCollapsedCells[affectedCell.cellPosition].Count);
+        //Debug.Log("Affected Cell: " + affectedCell.cellPosition + " has " + nonCollapsedCells[affectedCell.cellPosition].Count);
 
 
         Vector3 comingFromVector = affectedCell.cellPosition;
@@ -203,7 +217,7 @@ public class WFCGenerator : MonoBehaviour
         }
         
 
-        Debug.Log("Affected Cell: " + affectedCell.cellPosition + " has " + nonCollapsedCells[affectedCell.cellPosition].Count);
+        //Debug.Log("Affected Cell: " + affectedCell.cellPosition + " has " + nonCollapsedCells[affectedCell.cellPosition].Count);
 
     }
 
@@ -216,7 +230,7 @@ public class WFCGenerator : MonoBehaviour
 
         foreach (var cell in nonCollapsedCells)
         {
-            if (!t)
+            if (!t && cell.Value.Count > 1)
             {
                 t = true;
                 lowestEntropyCell = cell.Key;
