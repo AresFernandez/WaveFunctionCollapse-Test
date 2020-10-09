@@ -385,8 +385,18 @@ MonoBehaviour:
   height: 10
   width: 10
   cellSize: 1
-  prefabGOTest: {fileID: 7476000824778536107, guid: 9027388dae6651842a2f76d81eff408b, type: 3}
-  instantiatePrefabsTest: 0
+  gizmoSize: 0.1
+  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  drawGizmos: 1
+  cubeVertexs:
+  - {x: -0.5, y: -0.5, z: -0.5}
+  - {x: -0.5, y: -0.5, z: 0.5}
+  - {x: 0.5, y: -0.5, z: 0.5}
+  - {x: 0.5, y: -0.5, z: -0.5}
+  - {x: -0.5, y: 0.5, z: -0.5}
+  - {x: -0.5, y: 0.5, z: 0.5}
+  - {x: 0.5, y: 0.5, z: 0.5}
+  - {x: 0.5, y: 0.5, z: -0.5}
 --- !u!4 &1126352978
 Transform:
   m_ObjectHideFlags: 0
