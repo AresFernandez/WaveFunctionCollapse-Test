@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Piece", menuName = "ScriptableObjects/PieceManager", order = 1)]
+[CreateAssetMenu(fileName = "Piece", menuName = "", order = 1)]
 public class PieceInfo : ScriptableObject
 {
     public GameObject GOprefab;
