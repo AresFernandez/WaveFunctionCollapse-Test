@@ -11,7 +11,7 @@ public class WFCGenerator : MonoBehaviour
 
     public PieceInfo[] piecesOnGeneration;
 
-    Dictionary<Vector3,List<PieceInfo>> nonCollapsedCells;
+    Dictionary<Vector3, List<PieceInfo>> nonCollapsedCells;
 
     enum Direction { TOP, BOT, RIGHT, LEFT };
 
@@ -68,22 +68,22 @@ public class WFCGenerator : MonoBehaviour
         InstantiatePiece(cellPosition, selectedPiece.GOprefab);
 
         //Add to Queue of affected pieces
-            //top
-        if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(0,grid.cellSize,0)))
+        //top
+        if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(0, grid.cellSize, 0)))
         {
             affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(0, grid.cellSize, 0), Direction.BOT));
         }
-            //bot
+        //bot
         if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(0, -grid.cellSize, 0)))
         {
             affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(0, -grid.cellSize, 0), Direction.TOP));
         }
-            //right
-        if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(grid.cellSize,0, 0)))
+        //right
+        if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(grid.cellSize, 0, 0)))
         {
             affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(grid.cellSize, 0, 0), Direction.LEFT));
         }
-            //left
+        //left
         if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(-grid.cellSize, 0, 0)))
         {
             affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(-grid.cellSize, 0, 0), Direction.RIGHT));
@@ -163,7 +163,7 @@ public class WFCGenerator : MonoBehaviour
                 break;
             case Direction.LEFT:
                 // We add to the list of correct pieces only the ones that can be on this cell based on the cell that we come from
-                comingFromVector += new Vector3(-grid.cellSize, 0, 0);                
+                comingFromVector += new Vector3(-grid.cellSize, 0, 0);
                 for (int i = 0; i < nonCollapsedCells[comingFromVector].Count; i++)
                 {
                     for (int j = 0; j < nonCollapsedCells[comingFromVector][i].rightPieces.Length; j++)
@@ -215,7 +215,7 @@ public class WFCGenerator : MonoBehaviour
                 affectedPieces.Enqueue(new CellLink(affectedCell.cellPosition + new Vector3(-grid.cellSize, 0, 0), Direction.RIGHT));
             }
         }
-        
+
 
         //Debug.Log("Affected Cell: " + affectedCell.cellPosition + " has " + nonCollapsedCells[affectedCell.cellPosition].Count);
 

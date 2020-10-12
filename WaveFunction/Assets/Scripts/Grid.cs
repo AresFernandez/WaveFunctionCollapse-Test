@@ -5,50 +5,25 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     public Transform gridBottomLeft;
-
-    public uint height;
-    public uint width;
-    public uint depth;
-
+    public int height, width;
     public float cellSize;
-
-    [Header("Gizmos Settings")]
-    public bool drawGizmos;
-    [Range(0, 0.5f)]
     public float gizmoSize;
-    public Color gizmoColor;
 
-    Vector3[] cubeVertexs;
+    public Color gizmoColor;
+    public bool drawGizmos;
+
+    public Vector3[] cubeVertexs;
 
     public Vector3[] CalculateGridPositions()
     {
-        Vector3[] gridPositions = new Vector3[height*width];
+        Vector3[] gridPositions = new Vector3[height * width];
         Vector3 initialPosition = gridBottomLeft.position;
 
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                gridPositions[j+i*width] = initialPosition + new Vector3(j * cellSize, i * cellSize, 0);
-            }
-        }
-
-        return gridPositions;
-    }
-
-    public Vector3[] Calculate3DGridPositions()
-    {
-        Vector3[] gridPositions = new Vector3[height * width * depth];
-        Vector3 initialPosition = gridBottomLeft.position;
-
-        for (int i = 0; i < height; i++)
-        {
-            for (int j = 0; j < width; j++)
-            {
-                for(int k = 0; k < depth; k++)
-                {
-                    gridPositions[j + i * width + k * height * width] = initialPosition + new Vector3(j * cellSize, i * cellSize, k * cellSize);
-                }
+                gridPositions[j + i * width] = initialPosition + new Vector3(j * cellSize, i * cellSize, 0);
             }
         }
 
@@ -75,7 +50,7 @@ public class Grid : MonoBehaviour
                 new Vector3(cellSize / 2.0f, cellSize / 2.0f, -cellSize / 2.0f)
             };
 
-            Vector3[] gridPositions = Calculate3DGridPositions();
+            Vector3[] gridPositions = CalculateGridPositions();
 
             Gizmos.color = gizmoColor;
             for (int i = 0; i < gridPositions.Length; i++)
@@ -120,5 +95,7 @@ public class Grid : MonoBehaviour
         Gizmos.DrawLine(position + cubeVertexs[7], ((position + cubeVertexs[3]) - (position + cubeVertexs[7])) * gizmoSize + position + cubeVertexs[7]);
         Gizmos.DrawLine(position + cubeVertexs[7], ((position + cubeVertexs[4]) - (position + cubeVertexs[7])) * gizmoSize + position + cubeVertexs[7]);
         Gizmos.DrawLine(position + cubeVertexs[7], ((position + cubeVertexs[6]) - (position + cubeVertexs[7])) * gizmoSize + position + cubeVertexs[7]);
+
     }
+
 }
