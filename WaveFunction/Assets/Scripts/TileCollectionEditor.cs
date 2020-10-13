@@ -127,6 +127,8 @@ public class TileCollectionEditor : Editor
             tileCollection.piecesOnCollection[i] = piecesToKeep[i];
 
         UpdateSelectedPieces();
+
+        EditorUtility.SetDirty(tileCollection);
     }
 
     private bool AnyPieceSelected()
@@ -156,6 +158,8 @@ public class TileCollectionEditor : Editor
         tileCollection.piecesOnCollection = finalPieces;
 
         UpdateSelectedPieces();
+
+        EditorUtility.SetDirty(tileCollection);
     }
 }
 

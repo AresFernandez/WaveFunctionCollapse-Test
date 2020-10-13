@@ -9,7 +9,7 @@ public class WFCGenerator : MonoBehaviour
 {
     public Grid grid;
 
-    public PieceInfo[] piecesOnGeneration;
+    [SerializeField] TileCollection tileCollection;
 
     Dictionary<Vector3, List<PieceInfo>> nonCollapsedCells;
 
@@ -37,7 +37,7 @@ public class WFCGenerator : MonoBehaviour
         Vector3[] cellPositions = grid.CalculateGridPositions();
         for (int i = 0; i < cellPositions.Length; i++)
         {
-            nonCollapsedCells.Add(cellPositions[i], new List<PieceInfo>(piecesOnGeneration));
+            nonCollapsedCells.Add(cellPositions[i], new List<PieceInfo>(tileCollection.piecesOnCollection));
         }
 
         // We select the first cell randomly because at the begginning they have all the same entropy
