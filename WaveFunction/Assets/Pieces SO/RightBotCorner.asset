@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
   m_Name: RightBotCorner
   m_EditorClassIdentifier: 
-  GOprefab: {fileID: 7930795515110775539, guid: aea38985c8aaf5940b8522ef75b6ad44, type: 3}
+  piecePrefab: {fileID: 7930795515110775539, guid: aea38985c8aaf5940b8522ef75b6ad44, type: 3}
+  rotation: 0
   topPieces:
   - {fileID: 11400000, guid: 650917681841627419c1e5b16ca94f6f, type: 2}
   - {fileID: 11400000, guid: ca39ef760751a6e4e8ddc0ec572e1c64, type: 2}

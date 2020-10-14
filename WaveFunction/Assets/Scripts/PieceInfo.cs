@@ -5,7 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Piece", menuName = "", order = 1)]
 public class PieceInfo : ScriptableObject
 {
-    public GameObject GOprefab;
+    public GameObject piecePrefab;
+
+    [Range(0, 3)]
+    public int rotation;
+
     public PieceInfo[] topPieces;
     public PieceInfo[] botPieces;
     public PieceInfo[] rightPieces;

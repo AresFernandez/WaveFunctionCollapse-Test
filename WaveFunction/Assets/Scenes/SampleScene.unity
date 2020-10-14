@@ -1044,8 +1044,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridBottomLeft: {fileID: 1126352978}
-  height: 10
-  width: 10
+  height: 200
+  width: 200
   depth: 10
   cellSize: 1
   gizmoSize: 0.25

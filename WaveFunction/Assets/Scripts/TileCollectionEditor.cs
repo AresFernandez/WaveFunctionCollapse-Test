@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 [CustomEditor(typeof(TileCollection))]
@@ -49,7 +50,7 @@ public class TileCollectionEditor : Editor
         EditorGUILayout.LabelField("Pieces   (" + tileCollection.piecesOnCollection.Length.ToString() + ")" + "  -  Selected Pieces   (" + numberOfSelectedPieces.ToString() + ")", bold);
 
         EditorGUILayout.Space(20);
-
+        
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(Screen.width * 0.95f), GUILayout.Height(600));
         EditorGUILayout.BeginVertical("box");
         for(int i = 0; i < tileCollection.piecesOnCollection.Length; i++)
@@ -66,6 +67,16 @@ public class TileCollectionEditor : Editor
             if (GUILayout.Button("-"))
                 RemovePiecesButton();
         EditorGUILayout.EndHorizontal();
+
+        if(selectedPieces.Length > 0)
+        {
+            EditorGUILayout.BeginHorizontal("box");
+            if (GUILayout.Button("Select All"))
+                SelectAll(true);
+            if (GUILayout.Button("Cancel Selection"))
+                SelectAll(false);
+            EditorGUILayout.EndHorizontal();
+        }
     }
 
     private void DrawPiece(int _position, GUIStyle _boldStyle)
@@ -73,7 +84,7 @@ public class TileCollectionEditor : Editor
         EditorGUILayout.BeginHorizontal("box");
         EditorGUILayout.BeginVertical();
 
-        EditorGUILayout.LabelField(tileCollection.piecesOnCollection[_position].GOprefab.name, _boldStyle);
+        EditorGUILayout.LabelField(tileCollection.piecesOnCollection[_position].piece.piecePrefab.name, _boldStyle);
 
         EditorGUILayout.Space(10);
 
@@ -82,13 +93,13 @@ public class TileCollectionEditor : Editor
         EditorGUILayout.Space(5);
 
         if(GUILayout.Button("Go to Piece"))
-            EditorGUIUtility.PingObject(tileCollection.piecesOnCollection[_position]);
+            EditorGUIUtility.PingObject(tileCollection.piecesOnCollection[_position].piece);
         if (GUILayout.Button("Go to Prefab"))
-            EditorGUIUtility.PingObject(tileCollection.piecesOnCollection[_position].GOprefab);
+            EditorGUIUtility.PingObject(tileCollection.piecesOnCollection[_position].piece.piecePrefab);
 
         EditorGUILayout.EndVertical();
 
-        GUILayout.Box(AssetPreview.GetAssetPreview(tileCollection.piecesOnCollection[_position].GOprefab), GUILayout.Height(100), GUILayout.Width(100));
+        GUILayout.Box(AssetPreview.GetAssetPreview(tileCollection.piecesOnCollection[_position].piece.piecePrefab), GUILayout.Height(100), GUILayout.Width(100));
 
         EditorGUILayout.EndHorizontal();
     }
@@ -106,7 +117,7 @@ public class TileCollectionEditor : Editor
 
             for (int i = 0; i < selectedPieces.Length; i++)
                 if (selectedPieces[i])
-                    piecesSelectedNames += "Piece: " + tileCollection.piecesOnCollection[i].name + "\n";
+                    piecesSelectedNames += "Piece: " + tileCollection.piecesOnCollection[i].piece.name + "\n";
 
             if (EditorUtility.DisplayDialog("Remove all this pieces?", piecesSelectedNames, "Yes", "Cancel"))
                 RemoveSelectedPieces();
@@ -115,14 +126,14 @@ public class TileCollectionEditor : Editor
 
     private void RemoveSelectedPieces()
     {
-        List<PieceInfo> piecesToKeep = new List<PieceInfo>();
+        List<PieceInCollection> piecesToKeep = new List<PieceInCollection>();
         for(int i = 0; i < tileCollection.piecesOnCollection.Length; i++)
         {
             if (!selectedPieces[i])
                 piecesToKeep.Add(tileCollection.piecesOnCollection[i]);
         }
 
-        tileCollection.piecesOnCollection = new PieceInfo[piecesToKeep.Count];
+        tileCollection.piecesOnCollection = new PieceInCollection[piecesToKeep.Count];
         for (int i = 0; i < piecesToKeep.Count; i++)
             tileCollection.piecesOnCollection[i] = piecesToKeep[i];
 
@@ -148,18 +159,25 @@ public class TileCollectionEditor : Editor
 
     public void AddPieces(List<PieceInfo> _piecesToAdd)
     {
-        PieceInfo[] finalPieces = new PieceInfo[tileCollection.piecesOnCollection.Length + _piecesToAdd.Count];
+        PieceInCollection[] finalPieces = new PieceInCollection[tileCollection.piecesOnCollection.Length + _piecesToAdd.Count];
 
         for (int i = 0; i < tileCollection.piecesOnCollection.Length; i++)
             finalPieces[i] = tileCollection.piecesOnCollection[i];
+
         for (int i = 0; i < _piecesToAdd.Count; i++)
-            finalPieces[i + tileCollection.piecesOnCollection.Length] = _piecesToAdd[i];
+            finalPieces[i + tileCollection.piecesOnCollection.Length] = new PieceInCollection(_piecesToAdd[i]);
 
         tileCollection.piecesOnCollection = finalPieces;
 
         UpdateSelectedPieces();
 
         EditorUtility.SetDirty(tileCollection);
+    }
+
+    private void SelectAll(bool _value)
+    {
+        for (int i = 0; i < selectedPieces.Length; i++)
+            selectedPieces[i] = _value;
     }
 }
 
@@ -188,7 +206,17 @@ public class TileCollectionEditorWindow : EditorWindow
 
         for (int i = 0; i < window.allPieces.Length; i++)
         {
-            if (!window.tileCollection.piecesOnCollection.Contains<PieceInfo>(window.allPieces[i]))
+            bool contains = false;
+            for(int j = 0; j < window.tileCollection.piecesOnCollection.Length; j++)
+            {
+                if(window.allPieces[i] == window.tileCollection.piecesOnCollection[j].piece)
+                {
+                    contains = true;
+                    break;
+                }
+            }
+
+            if(!contains)
                 window.availablePieces.Add(window.allPieces[i]);
         }
 
@@ -241,14 +269,17 @@ public class TileCollectionEditorWindow : EditorWindow
         GUILayout.EndVertical();
         EditorGUILayout.EndScrollView();
 
-        GUILayout.Space(20);
+        GUILayout.Space(10);
 
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Add Selected Pieces"))
-            AddSelectedPiecesToCollection();
+        if (GUILayout.Button("Select all"))
+            SelectAll();
         if (GUILayout.Button("Cancel Selection"))
             CancelSelection();
         GUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Add Selected Pieces"))
+            AddSelectedPiecesToCollection();
     }
 
     private void DrawPiece(int _position, int _width)
@@ -267,11 +298,11 @@ public class TileCollectionEditorWindow : EditorWindow
         if (GUILayout.Button("Go to Piece"))
             EditorGUIUtility.PingObject(availablePieces[_position]);
         if (GUILayout.Button("Go to Prefab"))
-            EditorGUIUtility.PingObject(availablePieces[_position].GOprefab);
+            EditorGUIUtility.PingObject(availablePieces[_position].piecePrefab);
 
         GUILayout.EndVertical();
 
-        GUILayout.Box(AssetPreview.GetAssetPreview(availablePieces[_position].GOprefab), GUILayout.Height(100), GUILayout.Width(100));
+        GUILayout.Box(AssetPreview.GetAssetPreview(availablePieces[_position].piecePrefab), GUILayout.Height(100), GUILayout.Width(100));
 
         GUILayout.EndHorizontal();
     }
@@ -289,6 +320,8 @@ public class TileCollectionEditorWindow : EditorWindow
         tileCollectionEditor.AddPieces(piecesToAdd);
 
         UpdateAvailablePieces();
+
+        this.Close();
     }
 
     private void UpdateAvailablePieces()
@@ -297,11 +330,27 @@ public class TileCollectionEditorWindow : EditorWindow
 
         for (int i = 0; i < allPieces.Length; i++)
         {
-            if (!tileCollection.piecesOnCollection.Contains<PieceInfo>(allPieces[i]))
+            bool contains = false;
+            for(int j = 0; j < tileCollection.piecesOnCollection.Length; j++)
+            {
+                if(allPieces[i] == tileCollection.piecesOnCollection[j].piece)
+                {
+                    contains = true;
+                    break;
+                }
+            }
+
+            if (!contains)
                 availablePieces.Add(allPieces[i]);
         }
 
         selectedPieces = new bool[availablePieces.Count];
+    }
+
+    private void SelectAll()
+    {
+        for (int i = 0; i < selectedPieces.Length; i++)
+            selectedPieces[i] = true;
     }
 
     private void CancelSelection()

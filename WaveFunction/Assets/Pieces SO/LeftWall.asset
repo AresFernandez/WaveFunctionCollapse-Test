@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
   m_Name: LeftWall
   m_EditorClassIdentifier: 
-  GOprefab: {fileID: 2369288940951908184, guid: 99028b4b154bb984dabff0339024b697, type: 3}
+  piecePrefab: {fileID: 2369288940951908184, guid: 99028b4b154bb984dabff0339024b697, type: 3}
+  rotation: 0
   topPieces:
   - {fileID: 11400000, guid: 5e5b3c8fde87a7846b2ef9a3c82714a7, type: 2}
   - {fileID: 11400000}

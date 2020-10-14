@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
   m_Name: Sky
   m_EditorClassIdentifier: 
-  GOprefab: {fileID: 1923558995280760179, guid: 1418d877709134d44afb013bc345c82e, type: 3}
+  piecePrefab: {fileID: 1923558995280760179, guid: 1418d877709134d44afb013bc345c82e, type: 3}
+  rotation: 0
   topPieces:
   - {fileID: 11400000}
   botPieces:

@@ -35,9 +35,14 @@ public class WFCGenerator : MonoBehaviour
     {
         nonCollapsedCells = new Dictionary<Vector3, List<PieceInfo>>();
         Vector3[] cellPositions = grid.CalculateGridPositions();
+
+        List<PieceInfo> allPieces = new List<PieceInfo>();
+        for (int i = 0; i < tileCollection.piecesOnCollection.Length; i++)
+            allPieces.Add(tileCollection.piecesOnCollection[i].piece);
+
         for (int i = 0; i < cellPositions.Length; i++)
         {
-            nonCollapsedCells.Add(cellPositions[i], new List<PieceInfo>(tileCollection.piecesOnCollection));
+            nonCollapsedCells.Add(cellPositions[i], new List<PieceInfo>(allPieces));
         }
 
         // We select the first cell randomly because at the begginning they have all the same entropy
@@ -65,7 +70,7 @@ public class WFCGenerator : MonoBehaviour
         PieceInfo selectedPiece = nonCollapsedCells[cellPosition][Random.Range(0, nonCollapsedCells[cellPosition].Count)];
         nonCollapsedCells[cellPosition].Clear();
         nonCollapsedCells[cellPosition].Add(selectedPiece);
-        InstantiatePiece(cellPosition, selectedPiece.GOprefab);
+        InstantiatePiece(cellPosition, selectedPiece.piecePrefab);
 
         //Add to Queue of affected pieces
         //top
@@ -248,7 +253,7 @@ public class WFCGenerator : MonoBehaviour
         for (int i = 0; i < alreadyCollapsedCells.Count; i++)
         {
 
-            InstantiatePiece(alreadyCollapsedCells[i], nonCollapsedCells[alreadyCollapsedCells[i]][0].GOprefab);
+            InstantiatePiece(alreadyCollapsedCells[i], nonCollapsedCells[alreadyCollapsedCells[i]][0].piecePrefab);
             nonCollapsedCells.Remove(alreadyCollapsedCells[i]);
         }
 

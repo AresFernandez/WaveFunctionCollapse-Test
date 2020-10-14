@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
   m_Name: Ground
   m_EditorClassIdentifier: 
-  GOprefab: {fileID: 251182907087503144, guid: c438e46751b1b744abfa61035fee6d0d, type: 3}
+  piecePrefab: {fileID: 251182907087503144, guid: c438e46751b1b744abfa61035fee6d0d, type: 3}
+  rotation: 0
   topPieces:
   - {fileID: 11400000, guid: c7d8eb5f5bc371d4ea579472263fbc24, type: 2}
   - {fileID: 11400000}
