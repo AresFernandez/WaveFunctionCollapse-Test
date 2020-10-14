@@ -10,14 +10,19 @@ public class TileCollectionEditor : Editor
 {
     TileCollection tileCollection;
     bool[] selectedPieces;
+    Editor[] pieceEditors; 
     Vector2 scrollPos;
     int numberOfSelectedPieces;
+
+    GUIStyle bgColor;
 
     void OnEnable()
     {
         tileCollection = (TileCollection)target;
 
         UpdateSelectedPieces();
+
+        bgColor = new GUIStyle();
     }
 
     private void UpdateSelectedPieces()
@@ -27,6 +32,8 @@ public class TileCollectionEditor : Editor
             selectedPieces[i] = false;
 
         numberOfSelectedPieces = 0;
+
+        pieceEditors = new Editor[tileCollection.piecesOnCollection.Length];
     }
 
     public override void OnInspectorGUI()
@@ -99,7 +106,10 @@ public class TileCollectionEditor : Editor
 
         EditorGUILayout.EndVertical();
 
-        GUILayout.Box(AssetPreview.GetAssetPreview(tileCollection.piecesOnCollection[_position].piece.piecePrefab), GUILayout.Height(100), GUILayout.Width(100));
+        if (pieceEditors[_position] == null)
+            pieceEditors[_position] = Editor.CreateEditor(tileCollection.piecesOnCollection[_position].piece.piecePrefab);
+
+        pieceEditors[_position].OnInteractivePreviewGUI(GUILayoutUtility.GetRect(100, 100), new GUIStyle());
 
         EditorGUILayout.EndHorizontal();
     }
@@ -190,6 +200,7 @@ public class TileCollectionEditorWindow : EditorWindow
     PieceInfo[] allPieces;
     List<PieceInfo> availablePieces;
     bool[] selectedPieces;
+    Editor[] pieceEditors;
     int numberOfSelectedPieces;
 
     Vector2 scrollPos;
@@ -221,6 +232,7 @@ public class TileCollectionEditorWindow : EditorWindow
         }
 
         window.selectedPieces = new bool[window.availablePieces.Count];
+        window.pieceEditors = new Editor[window.availablePieces.Count];
         window.numberOfSelectedPieces = 0;
         window.width = 200;
         window.minSize = new Vector2(window.width, window.width);
@@ -302,7 +314,11 @@ public class TileCollectionEditorWindow : EditorWindow
 
         GUILayout.EndVertical();
 
-        GUILayout.Box(AssetPreview.GetAssetPreview(availablePieces[_position].piecePrefab), GUILayout.Height(100), GUILayout.Width(100));
+        if (pieceEditors[_position] == null)
+            pieceEditors[_position] = Editor.CreateEditor(availablePieces[_position].piecePrefab);
+        pieceEditors[_position].OnInteractivePreviewGUI(GUILayoutUtility.GetRect(100, 100), new GUIStyle());
+
+        //GUILayout.Box(AssetPreview.GetAssetPreview(availablePieces[_position].piecePrefab), GUILayout.Height(100), GUILayout.Width(100));
 
         GUILayout.EndHorizontal();
     }
@@ -345,6 +361,7 @@ public class TileCollectionEditorWindow : EditorWindow
         }
 
         selectedPieces = new bool[availablePieces.Count];
+        pieceEditors = new Editor[availablePieces.Count];
     }
 
     private void SelectAll()
