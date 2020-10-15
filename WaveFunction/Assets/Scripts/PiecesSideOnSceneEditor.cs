@@ -10,10 +10,16 @@ public class PiecesSideOnSceneEditor : MonoBehaviour
     public Side side;
 
     public PieceOnSceneEditor pieceOnSceneEditorScript;
+    public bool selected;
+
+    public PieceInfo piece;
+    public bool spawned;
 
     public string MoveToSide(Side _side)
     {
-        switch(_side)
+        side = _side;
+
+        switch(side)
         {
             case Side.Forward:
                 transform.localPosition = Vector3.forward;
@@ -42,19 +48,144 @@ public class PiecesSideOnSceneEditor : MonoBehaviour
     public static void OnDrawSceneGizmo(PiecesSideOnSceneEditor pieceSide, GizmoType gizmoType)
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawSphere(pieceSide.transform.position, 0.12f);
+        Gizmos.DrawSphere(pieceSide.transform.position, 0.24f);
 
-        if ((gizmoType & GizmoType.Selected) != 0)
-            AddPiece();
-        else
-            Gizmos.color = Color.white * 0.5f;
+        if ((gizmoType & GizmoType.Selected) != 0 && !pieceSide.selected)
+        {
+            pieceSide.selected = true;
+            Selection.activeGameObject = null;
 
-        Gizmos.DrawSphere(pieceSide.transform.position, 0.1f);
+            List<PieceInfo> piecesLeft;
+
+            if (pieceSide.spawned)
+            {
+                switch(pieceSide.side)
+                {
+                    case Side.Forward:
+                        break;
+                    case Side.Backward:
+                        break;
+                    case Side.Right:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.leftPieces);
+                        piecesLeft.Remove(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.leftPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.rightPieces);
+                        piecesLeft.Remove(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.rightPieces = piecesLeft.ToArray();
+
+                        break;
+                    case Side.Left:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.rightPieces);
+                        piecesLeft.Remove(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.rightPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.leftPieces);
+                        piecesLeft.Remove(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.leftPieces = piecesLeft.ToArray();
+
+                        break;
+                    case Side.Up:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.botPieces);
+                        piecesLeft.Remove(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.botPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.topPieces);
+                        piecesLeft.Remove(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.topPieces = piecesLeft.ToArray();
+
+                        break;
+                    case Side.Down:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.topPieces);
+                        piecesLeft.Remove(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.topPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.botPieces);
+                        piecesLeft.Remove(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.botPieces = piecesLeft.ToArray();
+
+                        break;
+                    default:
+                        break;
+                }
+
+                EditorUtility.SetDirty(pieceSide.piece);
+                EditorUtility.SetDirty(pieceSide.pieceOnSceneEditorScript.piece);
+
+                if(pieceSide.transform.childCount > 0)
+                    DestroyImmediate(pieceSide.transform.GetChild(0).gameObject);
+                pieceSide.spawned = false;
+            }
+            else
+            {
+                switch (pieceSide.side)
+                {
+                    case Side.Forward:
+                        break;
+                    case Side.Backward:
+                        break;
+                    case Side.Right:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.leftPieces);
+                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.leftPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.rightPieces);
+                        piecesLeft.Add(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.rightPieces = piecesLeft.ToArray();
+                        break;
+                    case Side.Left:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.rightPieces);
+                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.rightPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.leftPieces);
+                        piecesLeft.Add(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.leftPieces = piecesLeft.ToArray();
+                        break;
+                    case Side.Up:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.botPieces);
+                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.botPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.topPieces);
+                        piecesLeft.Add(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.topPieces = piecesLeft.ToArray();
+                        break;
+                    case Side.Down:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.topPieces);
+                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.topPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.botPieces);
+                        piecesLeft.Add(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.botPieces = piecesLeft.ToArray();
+                        break;
+                    default:
+                        break;
+                }
+
+                EditorUtility.SetDirty(pieceSide.piece);
+                EditorUtility.SetDirty(pieceSide.pieceOnSceneEditorScript.piece);
+
+                Instantiate(pieceSide.piece.piecePrefab, pieceSide.transform);
+                pieceSide.spawned = true;
+            }
+        }
+        else if((gizmoType & GizmoType.NonSelected) != 0 && pieceSide.selected)
+        {
+            pieceSide.selected = false;
+        }
+
+        Gizmos.color = Color.white * 0.5f;
+        Gizmos.DrawSphere(pieceSide.transform.position, 0.20f);
     }
 
-    private static void AddPiece()
+    private void OnDrawGizmos()
     {
-        Debug.Log("Add piece");
-        Selection.activeGameObject = null;
+        if(spawned)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireCube(transform.position, new Vector3(1, 1, 1));
+        }
     }
 }

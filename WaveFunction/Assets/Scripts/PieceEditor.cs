@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
 
 public class PieceEditor : EditorWindow
 {
@@ -14,7 +15,7 @@ public class PieceEditor : EditorWindow
 
 
     GameObject instantiatedPreviewPiece;
-    float numberOfPiecesForRow = 3;
+    float numberOfPiecesForRow = 4;
 
    [MenuItem("Tools/Piece Editor")]
     static void Init()
@@ -43,12 +44,33 @@ public class PieceEditor : EditorWindow
         if (root == null)
             CreateRoot();
 
+        if(allPieces == null)
+        {
+            allPieces = Resources.FindObjectsOfTypeAll(typeof(PieceInfo)) as PieceInfo[];
+            currentPieceIndex = 0;
+            pieceEditor = Editor.CreateEditor(allPieces[currentPieceIndex].piecePrefab);
+        }
+
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("Piece Editor", header);
 
         EditorGUILayout.Space(20);
 
-        EditorGUILayout.LabelField("Current Pìece: " + allPieces[currentPieceIndex].name, bold);
+        string[] allPiecesNames = new string[allPieces.Length];
+        for (int i = 0; i < allPiecesNames.Length; i++)
+            allPiecesNames[i] = allPieces[i].name;
+
+        EditorGUI.BeginChangeCheck();
+        currentPieceIndex = EditorGUILayout.Popup("Current Pìece: ", currentPieceIndex, allPiecesNames, bold);
+        if(EditorGUI.EndChangeCheck())
+        {
+            pieceEditor = Editor.CreateEditor(allPieces[currentPieceIndex].piecePrefab);
+
+            DeleteAllSpawnedPieces();
+            SpawnPieces();
+        }
+
+        //EditorGUILayout.LabelField("Current Pìece: " + allPieces[currentPieceIndex].name, bold);
 
         EditorGUILayout.Space(15);
 
@@ -138,7 +160,8 @@ public class PieceEditor : EditorWindow
 
             for (int i = 0; i < numberOfRows; i++)
                 for (int j = 0; j < numberOfPiecesForRow; j++)
-                    SpawnPiece(otherPieces[i * (int)numberOfRows + j], new Vector3(root.position.x + 4 * j + 4, root.position.y, root.position.z - 4 * i), true);
+                    if(i * (int)numberOfPiecesForRow + j < otherPieces.Count)
+                        SpawnPiece(otherPieces[i * (int)numberOfRows + j], new Vector3(root.position.x + 4 * j + 4, root.position.y, root.position.z - 4 * i), true);
         }
     }
 
@@ -151,17 +174,17 @@ public class PieceEditor : EditorWindow
         if (!_spawnSides)
             return spawnedPiece;
 
-        SpawnPieceSide(spawnedPiece, PiecesSideOnSceneEditor.Side.Forward);
-        SpawnPieceSide(spawnedPiece, PiecesSideOnSceneEditor.Side.Backward);
-        SpawnPieceSide(spawnedPiece, PiecesSideOnSceneEditor.Side.Right);
-        SpawnPieceSide(spawnedPiece, PiecesSideOnSceneEditor.Side.Left);
-        SpawnPieceSide(spawnedPiece, PiecesSideOnSceneEditor.Side.Up);
-        SpawnPieceSide(spawnedPiece, PiecesSideOnSceneEditor.Side.Down);
+        SpawnPieceSide(spawnedPiece, _piece, PiecesSideOnSceneEditor.Side.Forward);
+        SpawnPieceSide(spawnedPiece, _piece, PiecesSideOnSceneEditor.Side.Backward);
+        SpawnPieceSide(spawnedPiece, _piece, PiecesSideOnSceneEditor.Side.Right);
+        SpawnPieceSide(spawnedPiece, _piece, PiecesSideOnSceneEditor.Side.Left);
+        SpawnPieceSide(spawnedPiece, _piece, PiecesSideOnSceneEditor.Side.Up);
+        SpawnPieceSide(spawnedPiece, _piece, PiecesSideOnSceneEditor.Side.Down);
 
         return spawnedPiece;
     }
 
-    private void SpawnPieceSide(GameObject _parent, PiecesSideOnSceneEditor.Side _side)
+    private void SpawnPieceSide(GameObject _parent, PieceInfo _currentPiece, PiecesSideOnSceneEditor.Side _side)
     {
         GameObject pieceSide = new GameObject();
         pieceSide.transform.parent = _parent.transform;
@@ -169,5 +192,52 @@ public class PieceEditor : EditorWindow
         PiecesSideOnSceneEditor pieceSideOnSceneEditorScript = pieceSide.AddComponent<PiecesSideOnSceneEditor>();
         pieceSideOnSceneEditorScript.pieceOnSceneEditorScript = _parent.GetComponent<PieceOnSceneEditor>();
         pieceSide.name = pieceSideOnSceneEditorScript.MoveToSide(_side);
+        pieceSideOnSceneEditorScript.piece = allPieces[currentPieceIndex];
+
+        switch (_side)
+        {
+            case PiecesSideOnSceneEditor.Side.Forward:
+                
+                break;
+
+            case PiecesSideOnSceneEditor.Side.Backward:
+
+                break;
+
+            case PiecesSideOnSceneEditor.Side.Right:
+                if(_currentPiece.rightPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
+                {
+                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    pieceSideOnSceneEditorScript.spawned = true;
+                }
+                break;
+
+            case PiecesSideOnSceneEditor.Side.Left:
+                if (_currentPiece.leftPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
+                {
+                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    pieceSideOnSceneEditorScript.spawned = true;
+                }
+                break;
+
+            case PiecesSideOnSceneEditor.Side.Up:
+                if (_currentPiece.topPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
+                {
+                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    pieceSideOnSceneEditorScript.spawned = true;
+                }
+                break;
+
+            case PiecesSideOnSceneEditor.Side.Down:
+                if (_currentPiece.botPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
+                {
+                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    pieceSideOnSceneEditorScript.spawned = true;
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 }
