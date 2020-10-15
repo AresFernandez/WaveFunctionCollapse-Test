@@ -95,10 +95,17 @@ public class PieceEditor : EditorWindow
 
         EditorGUILayout.Space(15);
 
+        numberOfPiecesForRow = (int)Mathf.Abs(EditorGUILayout.IntSlider("Number of Pieces for Row", (int)numberOfPiecesForRow, 3, 10));
+
         if (GUILayout.Button("Focus on selected Piece"))
             if (instantiatedPreviewPiece != null)
                 ShowCurrentPiece();
-    }   
+    }
+
+    private void OnDestroy()
+    {
+        DestroyImmediate(root.gameObject);
+    }
 
     private void CreateRoot()
     {
@@ -151,17 +158,12 @@ public class PieceEditor : EditorWindow
         {
             instantiatedPreviewPiece = SpawnPiece(allPieces[currentPieceIndex], root.position, false);
 
-            List<PieceInfo> otherPieces = new List<PieceInfo>();
-            for (int i = 0; i < allPieces.Length; i++)
-                if (i != currentPieceIndex)
-                    otherPieces.Add(allPieces[i]);
-
-            float numberOfRows = Mathf.Ceil(otherPieces.Count / numberOfPiecesForRow);
+            float numberOfRows = Mathf.Ceil(allPieces.Length / numberOfPiecesForRow);
 
             for (int i = 0; i < numberOfRows; i++)
                 for (int j = 0; j < numberOfPiecesForRow; j++)
-                    if(i * (int)numberOfPiecesForRow + j < otherPieces.Count)
-                        SpawnPiece(otherPieces[i * (int)numberOfRows + j], new Vector3(root.position.x + 4 * j + 4, root.position.y, root.position.z - 4 * i), true);
+                    if(i * (int)numberOfPiecesForRow + j < allPieces.Length)
+                        SpawnPiece(allPieces[i * (int)numberOfRows + j], new Vector3(root.position.x + 4 * j + 4, root.position.y, root.position.z - 4 * i), true);
         }
     }
 

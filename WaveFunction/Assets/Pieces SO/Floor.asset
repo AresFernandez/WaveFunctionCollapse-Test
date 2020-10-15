@@ -18,11 +18,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9f39db156d04f1246bd63d0ad1d1f776, type: 2}
   botPieces:
   - {fileID: 11400000, guid: 28accb881870b0a4fb1e619d54e215be, type: 2}
+  - {fileID: 11400000, guid: 5e5b3c8fde87a7846b2ef9a3c82714a7, type: 2}
+  - {fileID: 11400000, guid: 5e5b3c8fde87a7846b2ef9a3c82714a7, type: 2}
   rightPieces:
   - {fileID: 11400000}
   - {fileID: 11400000, guid: 650917681841627419c1e5b16ca94f6f, type: 2}
+  - {fileID: 11400000, guid: cb1d74f17d7976a409a00ec0784926c9, type: 2}
   - {fileID: 11400000, guid: cb1d74f17d7976a409a00ec0784926c9, type: 2}
   leftPieces:
   - {fileID: 11400000}
   - {fileID: 11400000, guid: 28b71570c3d2c2d4ba601eb28bf961dc, type: 2}
   - {fileID: 11400000, guid: 5e5b3c8fde87a7846b2ef9a3c82714a7, type: 2}
+  - {fileID: 11400000, guid: cb1d74f17d7976a409a00ec0784926c9, type: 2}

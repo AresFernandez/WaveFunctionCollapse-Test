@@ -17,15 +17,15 @@ MonoBehaviour:
   topPieces:
   - {fileID: 11400000}
   botPieces:
-  - {fileID: 11400000}
   - {fileID: 11400000, guid: c7d8eb5f5bc371d4ea579472263fbc24, type: 2}
   - {fileID: 11400000, guid: 650917681841627419c1e5b16ca94f6f, type: 2}
   - {fileID: 11400000, guid: 5e5b3c8fde87a7846b2ef9a3c82714a7, type: 2}
-  rightPieces:
   - {fileID: 11400000}
+  rightPieces:
   - {fileID: 11400000, guid: 45523c782708b5c478366e3a6ea66f07, type: 2}
   - {fileID: 11400000, guid: 5e5b3c8fde87a7846b2ef9a3c82714a7, type: 2}
-  leftPieces:
   - {fileID: 11400000}
+  leftPieces:
   - {fileID: 11400000, guid: ca39ef760751a6e4e8ddc0ec572e1c64, type: 2}
   - {fileID: 11400000, guid: 650917681841627419c1e5b16ca94f6f, type: 2}
+  - {fileID: 11400000}

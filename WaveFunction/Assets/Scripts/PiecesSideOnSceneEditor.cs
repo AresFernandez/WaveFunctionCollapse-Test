@@ -162,6 +162,50 @@ public class PiecesSideOnSceneEditor : MonoBehaviour
                         break;
                     default:
                         break;
+                }switch (pieceSide.side)
+                {
+                    case Side.Forward:
+                        break;
+                    case Side.Backward:
+                        break;
+                    case Side.Right:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.leftPieces);
+                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.leftPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.rightPieces);
+                        piecesLeft.Add(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.rightPieces = piecesLeft.ToArray();
+                        break;
+                    case Side.Left:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.rightPieces);
+                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.rightPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.leftPieces);
+                        piecesLeft.Add(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.leftPieces = piecesLeft.ToArray();
+                        break;
+                    case Side.Up:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.botPieces);
+                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.botPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.topPieces);
+                        piecesLeft.Add(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.topPieces = piecesLeft.ToArray();
+                        break;
+                    case Side.Down:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.topPieces);
+                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.topPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.botPieces);
+                        piecesLeft.Add(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.botPieces = piecesLeft.ToArray();
+                        break;
+                    default:
+                        break;
                 }
 
                 EditorUtility.SetDirty(pieceSide.piece);
@@ -176,7 +220,30 @@ public class PiecesSideOnSceneEditor : MonoBehaviour
             pieceSide.selected = false;
         }
 
-        Gizmos.color = Color.white * 0.5f;
+        switch (pieceSide.side)
+        {
+            case Side.Forward:
+                Gizmos.color = Color.blue;
+                break;
+            case Side.Backward:
+                Gizmos.color = new Color(0.5f, 0.5f, 1, 1);
+                break;
+            case Side.Right:
+                Gizmos.color = Color.red;
+                break;
+            case Side.Left:
+                Gizmos.color = new Color(1, 0.5f, 0.5f, 1);
+                break;
+            case Side.Up:
+                Gizmos.color = Color.green;
+                break;
+            case Side.Down:
+                Gizmos.color = new Color(0.5f, 1, 0.5f, 1);
+                break;
+            default:
+                break;
+        }
+
         Gizmos.DrawSphere(pieceSide.transform.position, 0.20f);
     }
 
