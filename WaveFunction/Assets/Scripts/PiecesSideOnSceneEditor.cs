@@ -62,8 +62,22 @@ public class PiecesSideOnSceneEditor : MonoBehaviour
                 switch(pieceSide.side)
                 {
                     case Side.Forward:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.backPieces);
+                        piecesLeft.Remove(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.backPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.frontPieces);
+                        piecesLeft.Remove(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.frontPieces = piecesLeft.ToArray();
                         break;
                     case Side.Backward:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.frontPieces);
+                        piecesLeft.Remove(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.frontPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.backPieces);
+                        piecesLeft.Remove(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.backPieces = piecesLeft.ToArray();
                         break;
                     case Side.Right:
                         piecesLeft = new List<PieceInfo>(pieceSide.piece.leftPieces);
@@ -121,52 +135,22 @@ public class PiecesSideOnSceneEditor : MonoBehaviour
                 switch (pieceSide.side)
                 {
                     case Side.Forward:
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.backPieces);
+                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
+                        pieceSide.piece.backPieces = piecesLeft.ToArray();
+
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.frontPieces);
+                        piecesLeft.Add(pieceSide.piece);
+                        pieceSide.pieceOnSceneEditorScript.piece.frontPieces = piecesLeft.ToArray();
                         break;
                     case Side.Backward:
-                        break;
-                    case Side.Right:
-                        piecesLeft = new List<PieceInfo>(pieceSide.piece.leftPieces);
+                        piecesLeft = new List<PieceInfo>(pieceSide.piece.frontPieces);
                         piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
-                        pieceSide.piece.leftPieces = piecesLeft.ToArray();
+                        pieceSide.piece.frontPieces = piecesLeft.ToArray();
 
-                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.rightPieces);
+                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.backPieces);
                         piecesLeft.Add(pieceSide.piece);
-                        pieceSide.pieceOnSceneEditorScript.piece.rightPieces = piecesLeft.ToArray();
-                        break;
-                    case Side.Left:
-                        piecesLeft = new List<PieceInfo>(pieceSide.piece.rightPieces);
-                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
-                        pieceSide.piece.rightPieces = piecesLeft.ToArray();
-
-                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.leftPieces);
-                        piecesLeft.Add(pieceSide.piece);
-                        pieceSide.pieceOnSceneEditorScript.piece.leftPieces = piecesLeft.ToArray();
-                        break;
-                    case Side.Up:
-                        piecesLeft = new List<PieceInfo>(pieceSide.piece.botPieces);
-                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
-                        pieceSide.piece.botPieces = piecesLeft.ToArray();
-
-                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.topPieces);
-                        piecesLeft.Add(pieceSide.piece);
-                        pieceSide.pieceOnSceneEditorScript.piece.topPieces = piecesLeft.ToArray();
-                        break;
-                    case Side.Down:
-                        piecesLeft = new List<PieceInfo>(pieceSide.piece.topPieces);
-                        piecesLeft.Add(pieceSide.pieceOnSceneEditorScript.piece);
-                        pieceSide.piece.topPieces = piecesLeft.ToArray();
-
-                        piecesLeft = new List<PieceInfo>(pieceSide.pieceOnSceneEditorScript.piece.botPieces);
-                        piecesLeft.Add(pieceSide.piece);
-                        pieceSide.pieceOnSceneEditorScript.piece.botPieces = piecesLeft.ToArray();
-                        break;
-                    default:
-                        break;
-                }switch (pieceSide.side)
-                {
-                    case Side.Forward:
-                        break;
-                    case Side.Backward:
+                        pieceSide.pieceOnSceneEditorScript.piece.backPieces = piecesLeft.ToArray();
                         break;
                     case Side.Right:
                         piecesLeft = new List<PieceInfo>(pieceSide.piece.leftPieces);

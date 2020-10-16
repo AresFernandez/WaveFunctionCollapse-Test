@@ -29,3 +29,5 @@ MonoBehaviour:
   - {fileID: 11400000}
   - {fileID: 11400000, guid: 45523c782708b5c478366e3a6ea66f07, type: 2}
   - {fileID: 11400000, guid: cb1d74f17d7976a409a00ec0784926c9, type: 2}
+  frontPieces: []
+  backPieces: []

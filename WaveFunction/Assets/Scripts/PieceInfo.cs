@@ -14,4 +14,6 @@ public class PieceInfo : ScriptableObject
     public PieceInfo[] botPieces;
     public PieceInfo[] rightPieces;
     public PieceInfo[] leftPieces;
+    public PieceInfo[] frontPieces;
+    public PieceInfo[] backPieces;
 }

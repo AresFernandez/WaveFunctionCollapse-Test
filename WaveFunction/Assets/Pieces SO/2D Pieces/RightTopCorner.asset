@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
-  m_Name: LeftBotCorner
+  m_Name: RightTopCorner
   m_EditorClassIdentifier: 
-  piecePrefab: {fileID: 3888902853436859279, guid: 3de49a664b2d7914aad15b6962b485fa, type: 3}
+  piecePrefab: {fileID: 6132912814784059067, guid: 7592ee4c44df0d946895919d94e9e848, type: 3}
   rotation: 0
   topPieces:
-  - {fileID: 11400000, guid: 45523c782708b5c478366e3a6ea66f07, type: 2}
-  - {fileID: 11400000, guid: 5e5b3c8fde87a7846b2ef9a3c82714a7, type: 2}
+  - {fileID: 11400000, guid: 9f39db156d04f1246bd63d0ad1d1f776, type: 2}
   botPieces:
-  - {fileID: 11400000, guid: 28accb881870b0a4fb1e619d54e215be, type: 2}
-  rightPieces:
-  - {fileID: 11400000, guid: 28accb881870b0a4fb1e619d54e215be, type: 2}
   - {fileID: 11400000, guid: 28b71570c3d2c2d4ba601eb28bf961dc, type: 2}
   - {fileID: 11400000, guid: ca39ef760751a6e4e8ddc0ec572e1c64, type: 2}
-  - {fileID: 11400000, guid: c7d8eb5f5bc371d4ea579472263fbc24, type: 2}
+  rightPieces:
+  - {fileID: 11400000, guid: 9f39db156d04f1246bd63d0ad1d1f776, type: 2}
+  - {fileID: 11400000, guid: 5e5b3c8fde87a7846b2ef9a3c82714a7, type: 2}
+  - {fileID: 11400000, guid: 45523c782708b5c478366e3a6ea66f07, type: 2}
   leftPieces:
+  - {fileID: 11400000, guid: c7d8eb5f5bc371d4ea579472263fbc24, type: 2}
   - {fileID: 11400000, guid: 5e5b3c8fde87a7846b2ef9a3c82714a7, type: 2}
   - {fileID: 11400000, guid: 28b71570c3d2c2d4ba601eb28bf961dc, type: 2}
-  - {fileID: 11400000, guid: c7d8eb5f5bc371d4ea579472263fbc24, type: 2}
-  - {fileID: 11400000, guid: c7d8eb5f5bc371d4ea579472263fbc24, type: 2}
+  frontPieces: []
+  backPieces: []

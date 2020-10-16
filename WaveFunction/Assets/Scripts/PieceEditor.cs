@@ -203,11 +203,19 @@ public class PieceEditor : EditorWindow
         switch (_side)
         {
             case PiecesSideOnSceneEditor.Side.Forward:
-                
+                if (_currentPiece.frontPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
+                {
+                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    pieceSideOnSceneEditorScript.spawned = true;
+                }
                 break;
 
             case PiecesSideOnSceneEditor.Side.Backward:
-
+                if (_currentPiece.backPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
+                {
+                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    pieceSideOnSceneEditorScript.spawned = true;
+                }
                 break;
 
             case PiecesSideOnSceneEditor.Side.Right:
