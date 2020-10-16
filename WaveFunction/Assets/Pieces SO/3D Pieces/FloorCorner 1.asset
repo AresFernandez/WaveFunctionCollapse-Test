@@ -16,7 +16,8 @@ MonoBehaviour:
   rotation: 1
   topPieces:
   - {fileID: 11400000, guid: 1fd79e2028c873e4b9fd735c050598b3, type: 2}
-  botPieces: []
+  botPieces:
+  - {fileID: 11400000, guid: a386880735aede244b5e55013d665cf4, type: 2}
   rightPieces:
   - {fileID: 11400000, guid: 501c7503f351f1841982f01e0b6e4bf9, type: 2}
   - {fileID: 11400000, guid: 7060bdb77d8e053409270f430f1ba377, type: 2}

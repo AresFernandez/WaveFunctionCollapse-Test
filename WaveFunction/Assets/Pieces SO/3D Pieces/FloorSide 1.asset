@@ -18,6 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1fd79e2028c873e4b9fd735c050598b3, type: 2}
   botPieces:
   - {fileID: 11400000, guid: 8aaccf8185937c247940100e73dce96c, type: 2}
+  - {fileID: 11400000, guid: 9b6ca7d3659c1db46ab408c3d0f5d5b7, type: 2}
   rightPieces:
   - {fileID: 11400000, guid: 7e86df33abacb1d4abe821024ecfb189, type: 2}
   - {fileID: 11400000, guid: 4154fb70d2e250e418678652ea49d13e, type: 2}

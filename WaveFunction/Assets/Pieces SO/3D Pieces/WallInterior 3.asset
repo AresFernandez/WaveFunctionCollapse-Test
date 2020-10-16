@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
   m_Name: WallInterior 3
   m_EditorClassIdentifier: 
-  piecePrefab: {fileID: 2438634862625921224, guid: c76c406cf46dfdb40b842b07caac532b, type: 3}
+  piecePrefab: {fileID: 6690259326732936827, guid: c76c406cf46dfdb40b842b07caac532b, type: 3}
   rotation: 3
-  topPieces: []
-  botPieces: []
+  topPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 501c7503f351f1841982f01e0b6e4bf9, type: 2}
+  botPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 709bb55265c27514ea1f87a76770d85f, type: 2}
   rightPieces: []
   leftPieces: []
   frontPieces: []
