@@ -14,9 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piecePrefab: {fileID: 9036170928025376714, guid: a924a6e020fc63e43a64e5f4cc113e4a, type: 3}
   rotation: 3
-  topPieces: []
-  botPieces: []
+  topPieces:
+  - {fileID: 11400000, guid: 1fd79e2028c873e4b9fd735c050598b3, type: 2}
+  botPieces:
+  - {fileID: 11400000, guid: 8aaccf8185937c247940100e73dce96c, type: 2}
   rightPieces: []
-  leftPieces: []
-  frontPieces: []
-  backPieces: []
+  leftPieces:
+  - {fileID: 11400000, guid: 88d51ff396f926c448411485c9a228c2, type: 2}
+  - {fileID: 11400000, guid: 852868f897b788944b0672da269ef448, type: 2}
+  - {fileID: 11400000, guid: ac3223ed821bf19409fa192e1241a567, type: 2}
+  - {fileID: 11400000, guid: ad2600c74fe3a3641bd449f44ef2d6e2, type: 2}
+  - {fileID: 11400000, guid: b0844844e607c704197d2d73a9988111, type: 2}
+  frontPieces:
+  - {fileID: 11400000, guid: b3cb0b8d3d7787346ad94e9310b43c4c, type: 2}
+  backPieces:
+  - {fileID: 11400000, guid: 501c7503f351f1841982f01e0b6e4bf9, type: 2}

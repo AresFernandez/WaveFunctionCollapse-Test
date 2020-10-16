@@ -197,7 +197,8 @@ public class PiecesSideOnSceneEditor : MonoBehaviour
                 EditorUtility.SetDirty(pieceSide.piece);
                 EditorUtility.SetDirty(pieceSide.pieceOnSceneEditorScript.piece);
 
-                Instantiate(pieceSide.piece.piecePrefab, pieceSide.transform);
+                GameObject instantiatedPiece = Instantiate(pieceSide.piece.piecePrefab, pieceSide.transform.position - new Vector3(0, 0.5f, 0), pieceSide.piece.piecePrefab.transform.rotation, pieceSide.transform);
+                instantiatedPiece.transform.eulerAngles += new Vector3(0, 0, 90) * pieceSide.piece.rotation;
                 pieceSide.spawned = true;
             }
         }

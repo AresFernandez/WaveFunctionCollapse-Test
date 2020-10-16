@@ -257,6 +257,9 @@ public class PieceEditor : EditorWindow
         }
 
         if(instantiatedPiece)
+        {
             instantiatedPiece.transform.eulerAngles += new Vector3(0, 0, 90) * allPieces[currentPieceIndex].rotation;
+            instantiatedPiece.transform.position -= new Vector3(0, 0.5f, 0);
+        }
     }
 }

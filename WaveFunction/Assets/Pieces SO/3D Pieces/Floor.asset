@@ -14,9 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piecePrefab: {fileID: 5686547426676637188, guid: a1b5ed8136025584b9df332f556e618c, type: 3}
   rotation: 0
-  topPieces: []
-  botPieces: []
-  rightPieces: []
-  leftPieces: []
-  frontPieces: []
-  backPieces: []
+  topPieces:
+  - {fileID: 11400000, guid: 1fd79e2028c873e4b9fd735c050598b3, type: 2}
+  botPieces:
+  - {fileID: 11400000, guid: 8aaccf8185937c247940100e73dce96c, type: 2}
+  rightPieces:
+  - {fileID: 11400000, guid: 7e86df33abacb1d4abe821024ecfb189, type: 2}
+  - {fileID: 11400000, guid: 4154fb70d2e250e418678652ea49d13e, type: 2}
+  - {fileID: 11400000, guid: cc82c6d013df19d4a88adf7d06deaa85, type: 2}
+  - {fileID: 11400000}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 80d05aa9d4e3c1e41af8be28ca07102d, type: 2}
+  leftPieces:
+  - {fileID: 11400000, guid: 88d51ff396f926c448411485c9a228c2, type: 2}
+  - {fileID: 11400000, guid: 852868f897b788944b0672da269ef448, type: 2}
+  - {fileID: 11400000, guid: ac3223ed821bf19409fa192e1241a567, type: 2}
+  - {fileID: 11400000}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: b0844844e607c704197d2d73a9988111, type: 2}
+  frontPieces:
+  - {fileID: 11400000, guid: 3979496686e6ce2488ed7e45b80089ca, type: 2}
+  - {fileID: 11400000, guid: ac3223ed821bf19409fa192e1241a567, type: 2}
+  - {fileID: 11400000, guid: 4154fb70d2e250e418678652ea49d13e, type: 2}
+  - {fileID: 11400000}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 5eb8dd3c2241fac4f903bd24c2ccc287, type: 2}
+  backPieces:
+  - {fileID: 11400000, guid: f8c2b5edc580de04890fa96e7688d5ae, type: 2}
+  - {fileID: 11400000, guid: 852868f897b788944b0672da269ef448, type: 2}
+  - {fileID: 11400000, guid: cc82c6d013df19d4a88adf7d06deaa85, type: 2}
+  - {fileID: 11400000}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 7060bdb77d8e053409270f430f1ba377, type: 2}
