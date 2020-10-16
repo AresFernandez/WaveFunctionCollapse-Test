@@ -160,10 +160,14 @@ public class PieceEditor : EditorWindow
 
             float numberOfRows = Mathf.Ceil(allPieces.Length / numberOfPiecesForRow);
 
+            int pieceNumber = 0;
             for (int i = 0; i < numberOfRows; i++)
                 for (int j = 0; j < numberOfPiecesForRow; j++)
-                    if(i * (int)numberOfPiecesForRow + j < allPieces.Length)
-                        SpawnPiece(allPieces[i * (int)numberOfRows + j], new Vector3(root.position.x + 4 * j + 4, root.position.y, root.position.z - 4 * i), true);
+                    if(pieceNumber < allPieces.Length)
+                    {
+                        SpawnPiece(allPieces[pieceNumber], new Vector3(root.position.x + 4 * j + 4, root.position.y, root.position.z - 4 * i), true);
+                        pieceNumber++;
+                    }
         }
     }
 
