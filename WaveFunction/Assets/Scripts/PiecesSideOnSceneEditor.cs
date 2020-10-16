@@ -19,25 +19,27 @@ public class PiecesSideOnSceneEditor : MonoBehaviour
     {
         side = _side;
 
-        switch(side)
+        transform.position = transform.parent.position + new Vector3(0, 0.5f, 0);
+
+        switch (side)
         {
             case Side.Forward:
-                transform.localPosition = Vector3.forward;
+                transform.position += Vector3.forward;
                 return "Forward";
             case Side.Backward:
-                transform.localPosition = -Vector3.forward;
+                transform.position += -Vector3.forward;
                 return "Backward";
             case Side.Right:
-                transform.localPosition = Vector3.right;
+                transform.position += Vector3.right;
                 return "Right";
             case Side.Left:
-                transform.localPosition = -Vector3.right;
+                transform.position += -Vector3.right;
                 return "Left";
             case Side.Up:
-                transform.localPosition = Vector3.up;
+                transform.position += Vector3.up;
                 return "Up";
             case Side.Down:
-                transform.localPosition = -Vector3.up;
+                transform.position += -Vector3.up;
                 return "Down";
             default:
                 return "";

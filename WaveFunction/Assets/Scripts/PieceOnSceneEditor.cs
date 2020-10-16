@@ -9,6 +9,6 @@ public class PieceOnSceneEditor : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(transform.position, new Vector3(1, 1, 1));
+        Gizmos.DrawWireCube(transform.position + new Vector3(0, 0.5f, 0), new Vector3(1, 1, 1));
     }
 }

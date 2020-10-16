@@ -12,7 +12,7 @@ public class PieceEditor : EditorWindow
     int currentPieceIndex;
 
     Editor pieceEditor;
-
+    PieceDatabase pieceDatabase;
 
     GameObject instantiatedPreviewPiece;
     float numberOfPiecesForRow = 4;
@@ -23,13 +23,6 @@ public class PieceEditor : EditorWindow
         PieceEditor window = GetWindow<PieceEditor>();
 
         window.minSize = new Vector2(200, 500);
-
-        window.allPieces = Resources.FindObjectsOfTypeAll(typeof(PieceInfo)) as PieceInfo[];
-        if (window.allPieces.Length > 0)
-        {
-            window.currentPieceIndex = 0;
-            window.pieceEditor = Editor.CreateEditor(window.allPieces[window.currentPieceIndex].piecePrefab);
-        }
     }
 
     private void OnGUI()
@@ -44,9 +37,15 @@ public class PieceEditor : EditorWindow
         if (root == null)
             CreateRoot();
 
+        if(!pieceDatabase)
+        {
+            pieceDatabase = EditorGUILayout.ObjectField("Piece Database", pieceDatabase, typeof(PieceDatabase), true) as PieceDatabase;
+            return;
+        }
+
         if(allPieces == null)
         {
-            allPieces = Resources.FindObjectsOfTypeAll(typeof(PieceInfo)) as PieceInfo[];
+            allPieces = pieceDatabase.allPieces;
             currentPieceIndex = 0;
             pieceEditor = Editor.CreateEditor(allPieces[currentPieceIndex].piecePrefab);
         }
@@ -173,7 +172,8 @@ public class PieceEditor : EditorWindow
 
     private GameObject SpawnPiece(PieceInfo _piece, Vector3 _position, bool _spawnSides)
     {
-        GameObject spawnedPiece = Instantiate(_piece.piecePrefab, _position, Quaternion.identity, root);
+        GameObject spawnedPiece = Instantiate(_piece.piecePrefab, _position, _piece.piecePrefab.transform.rotation, root);
+        spawnedPiece.transform.eulerAngles += new Vector3(0, 0, 90) * _piece.rotation; 
         PieceOnSceneEditor pieceOnSceneEditorScript = spawnedPiece.AddComponent<PieceOnSceneEditor>();
         pieceOnSceneEditorScript.piece = _piece;
 
@@ -200,12 +200,14 @@ public class PieceEditor : EditorWindow
         pieceSide.name = pieceSideOnSceneEditorScript.MoveToSide(_side);
         pieceSideOnSceneEditorScript.piece = allPieces[currentPieceIndex];
 
+        GameObject instantiatedPiece = null;
+
         switch (_side)
         {
             case PiecesSideOnSceneEditor.Side.Forward:
                 if (_currentPiece.frontPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
                 {
-                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    instantiatedPiece = Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, allPieces[currentPieceIndex].piecePrefab.transform.rotation, pieceSide.transform);
                     pieceSideOnSceneEditorScript.spawned = true;
                 }
                 break;
@@ -213,7 +215,7 @@ public class PieceEditor : EditorWindow
             case PiecesSideOnSceneEditor.Side.Backward:
                 if (_currentPiece.backPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
                 {
-                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    instantiatedPiece = Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, allPieces[currentPieceIndex].piecePrefab.transform.rotation, pieceSide.transform);
                     pieceSideOnSceneEditorScript.spawned = true;
                 }
                 break;
@@ -221,7 +223,7 @@ public class PieceEditor : EditorWindow
             case PiecesSideOnSceneEditor.Side.Right:
                 if(_currentPiece.rightPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
                 {
-                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    instantiatedPiece = Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, allPieces[currentPieceIndex].piecePrefab.transform.rotation, pieceSide.transform);
                     pieceSideOnSceneEditorScript.spawned = true;
                 }
                 break;
@@ -229,7 +231,7 @@ public class PieceEditor : EditorWindow
             case PiecesSideOnSceneEditor.Side.Left:
                 if (_currentPiece.leftPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
                 {
-                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    instantiatedPiece = Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, allPieces[currentPieceIndex].piecePrefab.transform.rotation, pieceSide.transform);
                     pieceSideOnSceneEditorScript.spawned = true;
                 }
                 break;
@@ -237,7 +239,7 @@ public class PieceEditor : EditorWindow
             case PiecesSideOnSceneEditor.Side.Up:
                 if (_currentPiece.topPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
                 {
-                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    instantiatedPiece = Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, allPieces[currentPieceIndex].piecePrefab.transform.rotation, pieceSide.transform);
                     pieceSideOnSceneEditorScript.spawned = true;
                 }
                 break;
@@ -245,7 +247,7 @@ public class PieceEditor : EditorWindow
             case PiecesSideOnSceneEditor.Side.Down:
                 if (_currentPiece.botPieces.Contains<PieceInfo>(allPieces[currentPieceIndex]))
                 {
-                    Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, Quaternion.identity, pieceSide.transform);
+                    instantiatedPiece = Instantiate(allPieces[currentPieceIndex].piecePrefab, pieceSide.transform.position, allPieces[currentPieceIndex].piecePrefab.transform.rotation, pieceSide.transform);
                     pieceSideOnSceneEditorScript.spawned = true;
                 }
                 break;
@@ -253,5 +255,8 @@ public class PieceEditor : EditorWindow
             default:
                 break;
         }
+
+        if(instantiatedPiece)
+            instantiatedPiece.transform.eulerAngles += new Vector3(0, 0, 90) * allPieces[currentPieceIndex].rotation;
     }
 }
