@@ -15,7 +15,6 @@ MonoBehaviour:
   piecePrefab: {fileID: 1828586506837814482, guid: 79593d2cd203a9145bf806e4762814f0, type: 3}
   rotation: 1
   topPieces:
-  - {fileID: 11400000, guid: 1fd79e2028c873e4b9fd735c050598b3, type: 2}
   - {fileID: 11400000, guid: 9b6ca7d3659c1db46ab408c3d0f5d5b7, type: 2}
   botPieces:
   - {fileID: 11400000, guid: 8aaccf8185937c247940100e73dce96c, type: 2}

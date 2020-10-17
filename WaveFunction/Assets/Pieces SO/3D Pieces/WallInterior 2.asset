@@ -20,7 +20,11 @@ MonoBehaviour:
   botPieces:
   - {fileID: 11400000, guid: 4bcbb31058e0a3249b385038a104f110, type: 2}
   - {fileID: 11400000}
-  rightPieces: []
-  leftPieces: []
-  frontPieces: []
-  backPieces: []
+  rightPieces:
+  - {fileID: 11400000, guid: 1fd79e2028c873e4b9fd735c050598b3, type: 2}
+  leftPieces:
+  - {fileID: 11400000, guid: e9881d94527ce3147aa7f97426cc3aa2, type: 2}
+  frontPieces:
+  - {fileID: 11400000, guid: 1fd79e2028c873e4b9fd735c050598b3, type: 2}
+  backPieces:
+  - {fileID: 11400000, guid: ea402610110f1b040b18f39358021e21, type: 2}

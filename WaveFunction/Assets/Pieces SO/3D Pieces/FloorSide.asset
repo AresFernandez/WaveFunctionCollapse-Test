@@ -17,7 +17,6 @@ MonoBehaviour:
   topPieces:
   - {fileID: 11400000, guid: 1fd79e2028c873e4b9fd735c050598b3, type: 2}
   botPieces:
-  - {fileID: 11400000, guid: 8aaccf8185937c247940100e73dce96c, type: 2}
   - {fileID: 11400000, guid: eadf850894a570e4ea9ac2920b450338, type: 2}
   rightPieces:
   - {fileID: 11400000, guid: 501c7503f351f1841982f01e0b6e4bf9, type: 2}
@@ -28,4 +27,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4154fb70d2e250e418678652ea49d13e, type: 2}
   - {fileID: 11400000, guid: ad2600c74fe3a3641bd449f44ef2d6e2, type: 2}
   - {fileID: 11400000, guid: 5eb8dd3c2241fac4f903bd24c2ccc287, type: 2}
-  backPieces: []
+  backPieces:
+  - {fileID: 11400000, guid: 1fd79e2028c873e4b9fd735c050598b3, type: 2}

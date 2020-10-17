@@ -28,15 +28,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 709bb55265c27514ea1f87a76770d85f, type: 2}
   - {fileID: 11400000, guid: fc49e29a69f6ab249b966d7cdfec8284, type: 2}
   - {fileID: 11400000, guid: ad2600c74fe3a3641bd449f44ef2d6e2, type: 2}
-  - {fileID: 11400000, guid: 172e80abb7a6d324486a4ddf397348a8, type: 2}
-  - {fileID: 11400000, guid: b3cb0b8d3d7787346ad94e9310b43c4c, type: 2}
-  - {fileID: 11400000, guid: 501c7503f351f1841982f01e0b6e4bf9, type: 2}
-  - {fileID: 11400000, guid: b0844844e607c704197d2d73a9988111, type: 2}
-  - {fileID: 11400000, guid: 5eb8dd3c2241fac4f903bd24c2ccc287, type: 2}
-  - {fileID: 11400000, guid: 80d05aa9d4e3c1e41af8be28ca07102d, type: 2}
-  - {fileID: 11400000, guid: 7060bdb77d8e053409270f430f1ba377, type: 2}
-  botPieces: []
-  rightPieces: []
-  leftPieces: []
-  frontPieces: []
-  backPieces: []
+  - {fileID: 11400000}
+  - {fileID: 11400000}
+  botPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000}
+  rightPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: ea402610110f1b040b18f39358021e21, type: 2}
+  leftPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 9b6ca7d3659c1db46ab408c3d0f5d5b7, type: 2}
+  frontPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: e9881d94527ce3147aa7f97426cc3aa2, type: 2}
+  backPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: eadf850894a570e4ea9ac2920b450338, type: 2}

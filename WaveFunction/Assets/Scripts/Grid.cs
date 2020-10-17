@@ -55,6 +55,11 @@ public class Grid : MonoBehaviour
         return gridBottomLeft.position + new Vector3(Random.Range(0, width) * cellSize, Random.Range(0, height) * cellSize, 0);
     }
 
+    public Vector3 GetRandom3DPosition()
+    {
+        return gridBottomLeft.position + new Vector3(Random.Range(0, width) * cellSize, Random.Range(0, height) * cellSize, Random.Range(0, depth) * cellSize);
+    }
+
     public void OnDrawGizmos()
     {
         if (drawGizmos)

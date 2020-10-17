@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 
@@ -13,7 +14,9 @@ public class WFCGenerator : MonoBehaviour
 
     Dictionary<Vector3, List<PieceInfo>> nonCollapsedCells;
 
-    enum Direction { TOP, BOT, RIGHT, LEFT };
+    public PieceInfo emptyPiece;
+
+    enum Direction { TOP, BOT, RIGHT, LEFT, FRONT, BACK };
 
     struct CellLink
     {
@@ -34,7 +37,7 @@ public class WFCGenerator : MonoBehaviour
     void Start()
     {
         nonCollapsedCells = new Dictionary<Vector3, List<PieceInfo>>();
-        Vector3[] cellPositions = grid.CalculateGridPositions();
+        Vector3[] cellPositions = grid.Calculate3DGridPositions();
 
         List<PieceInfo> allPieces = new List<PieceInfo>();
         for (int i = 0; i < tileCollection.piecesOnCollection.Length; i++)
@@ -46,31 +49,38 @@ public class WFCGenerator : MonoBehaviour
         }
 
         // We select the first cell randomly because at the begginning they have all the same entropy
-        SelectPiece(grid.GetRandomPosition());
+        Vector3 randomPosition = grid.GetRandom3DPosition();
+        SelectPiece(randomPosition);
 
         // We keep collapsing cells priorizing those with the lowest entropy
-        int safeCounter = 0;
+        int entropyValue = 0;
+        Vector3 lowestEntropyCell = Vector3.zero;
         while (nonCollapsedCells.Count > 0)
         {
-            safeCounter++;
-            if (safeCounter >= 1000)
-            {
-                Debug.LogError("Maximum iterations reached");
-            }
-            Vector3 lowestEntropyCell = SearchForLowerEntropy();
-            if (nonCollapsedCells.Count > 0)
-            {
+            lowestEntropyCell = SearchForLowerEntropy(out entropyValue);
+            Debug.Log("Lowest Entropy Cell is: " + lowestEntropyCell + " with value: " + entropyValue);
+
+            if(entropyValue != -1)
                 SelectPiece(lowestEntropyCell);
-            }
         }
     }
+
+     void OnDrawGizmos()
+     {
+        Handles.color = Color.white;
+        if(nonCollapsedCells.Count > 0)
+            foreach(KeyValuePair<Vector3, List<PieceInfo>> cell in nonCollapsedCells)
+                Handles.Label(cell.Key, cell.Key + " / " + cell.Value.Count);
+     }
 
     void SelectPiece(Vector3 cellPosition)
     {
         PieceInfo selectedPiece = nonCollapsedCells[cellPosition][Random.Range(0, nonCollapsedCells[cellPosition].Count)];
         nonCollapsedCells[cellPosition].Clear();
         nonCollapsedCells[cellPosition].Add(selectedPiece);
-        InstantiatePiece(cellPosition, selectedPiece.piecePrefab);
+        //Debug.Log("Piece Selected for position: " + cellPosition + " is: " + selectedPiece.name);
+
+        InstantiatePiece(cellPosition, selectedPiece);
 
         //Add to Queue of affected pieces
         //top
@@ -93,31 +103,40 @@ public class WFCGenerator : MonoBehaviour
         {
             affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(-grid.cellSize, 0, 0), Direction.RIGHT));
         }
+        //front
+        if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(0, 0, grid.cellSize)))
+        {
+            affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(0, 0, grid.cellSize), Direction.BACK));
+        }
+        //back
+        if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(0, 0, -grid.cellSize)))
+        {
+            affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(0, 0, -grid.cellSize), Direction.FRONT));
+        }
 
-        int safeCounter = 0;
         //Propagate recursively?
-        while (affectedPieces.Count > 0 && safeCounter < 1000)
+        int safeCounter = 0;
+        while (affectedPieces.Count > 0 && safeCounter < 10000)
         {
             safeCounter++;
-            if (safeCounter >= 1000)
-            {
-                Debug.LogError("Maximum iterations reached");
-            }
+            if (safeCounter >= 10000)
+                Debug.LogError("MAX ITERATIONS");
             Propagate(affectedPieces.Dequeue());
         }
-        nonCollapsedCells.Remove(cellPosition);
 
+        nonCollapsedCells.Remove(cellPosition);
     }
 
-    void InstantiatePiece(Vector3 cellPosition, GameObject piece)
+    void InstantiatePiece(Vector3 cellPosition, PieceInfo piece)
     {
-        Instantiate<GameObject>(piece, cellPosition, Quaternion.identity, transform);
+        GameObject newPiece = Instantiate<GameObject>(piece.piecePrefab, cellPosition, piece.piecePrefab.transform.rotation, transform);
+        newPiece.transform.position -= new Vector3(0, grid.cellSize / 2.0f, 0);
+        newPiece.transform.eulerAngles += new Vector3(0, 0, 90) * piece.rotation;
     }
 
     void Propagate(CellLink affectedCell)
     {
         //Debug.Log("Affected Cell: " + affectedCell.cellPosition + " has " + nonCollapsedCells[affectedCell.cellPosition].Count);
-
 
         Vector3 comingFromVector = affectedCell.cellPosition;
         List<PieceInfo> correctPieces = new List<PieceInfo>();
@@ -180,9 +199,39 @@ public class WFCGenerator : MonoBehaviour
                     }
                 }
                 break;
+            case Direction.FRONT:
+                // We add to the list of correct pieces only the ones that can be on this cell based on the cell that we come from
+                comingFromVector += new Vector3(0, 0, grid.cellSize);
+                for (int i = 0; i < nonCollapsedCells[comingFromVector].Count; i++)
+                {
+                    for (int j = 0; j < nonCollapsedCells[comingFromVector][i].backPieces.Length; j++)
+                    {
+                        if (!correctPieces.Contains(nonCollapsedCells[comingFromVector][i].backPieces[j]))
+                        {
+                            correctPieces.Add(nonCollapsedCells[comingFromVector][i].backPieces[j]);
+                        }
+                    }
+                }
+                break;
+            case Direction.BACK:
+                // We add to the list of correct pieces only the ones that can be on this cell based on the cell that we come from
+                comingFromVector += new Vector3(0, 0, -grid.cellSize);
+                for (int i = 0; i < nonCollapsedCells[comingFromVector].Count; i++)
+                {
+                    for (int j = 0; j < nonCollapsedCells[comingFromVector][i].frontPieces.Length; j++)
+                    {
+                        if (!correctPieces.Contains(nonCollapsedCells[comingFromVector][i].frontPieces[j]))
+                        {
+                            correctPieces.Add(nonCollapsedCells[comingFromVector][i].frontPieces[j]);
+                        }
+                    }
+                }
+                break;
             default:
                 break;
         }
+
+        Debug.Log("Cell with position: " + affectedCell.cellPosition + " has " + correctPieces.Count + " possible pieces");
 
         bool wasAffected = false;
         // We delete all the possible pieces in our position that don't match the correct pieces
@@ -198,6 +247,11 @@ public class WFCGenerator : MonoBehaviour
 
         if (wasAffected)
         {
+            Debug.Log("Now has " + nonCollapsedCells[affectedCell.cellPosition].Count + " possible pieces");
+            if (nonCollapsedCells[affectedCell.cellPosition].Count > 1)
+                for (int i = 0; i < nonCollapsedCells[affectedCell.cellPosition].Count; i++)
+                    Debug.LogWarning("Piece :" + (i - 1).ToString() +nonCollapsedCells[affectedCell.cellPosition][i].name);
+            
             //We propagate to the surrounding affected cells except the one where we come from
             //top
             if (affectedCell.comingFrom != Direction.TOP && nonCollapsedCells.ContainsKey(affectedCell.cellPosition + new Vector3(0, grid.cellSize, 0)))
@@ -219,6 +273,16 @@ public class WFCGenerator : MonoBehaviour
             {
                 affectedPieces.Enqueue(new CellLink(affectedCell.cellPosition + new Vector3(-grid.cellSize, 0, 0), Direction.RIGHT));
             }
+            //front 
+            if (affectedCell.comingFrom != Direction.FRONT && nonCollapsedCells.ContainsKey(affectedCell.cellPosition + new Vector3(0, 0, grid.cellSize)))
+            {
+                affectedPieces.Enqueue(new CellLink(affectedCell.cellPosition + new Vector3(0, 0, grid.cellSize), Direction.BACK));
+            }
+            //back
+            if (affectedCell.comingFrom != Direction.BACK && nonCollapsedCells.ContainsKey(affectedCell.cellPosition + new Vector3(0, 0, -grid.cellSize)))
+            {
+                affectedPieces.Enqueue(new CellLink(affectedCell.cellPosition + new Vector3(0, 0, -grid.cellSize), Direction.FRONT));
+            }
         }
 
 
@@ -226,41 +290,40 @@ public class WFCGenerator : MonoBehaviour
 
     }
 
-
-    Vector3 SearchForLowerEntropy()
+    Vector3 SearchForLowerEntropy(out int entropyValue)
     {
-        Vector3 lowestEntropyCell = Vector3.zero;
-        bool t = false;
+        int lowestEntropyValue = -1;
+        Vector3 lowestEntropyCell = -Vector3.one * 1000;
         List<Vector3> alreadyCollapsedCells = new List<Vector3>();
 
-        foreach (var cell in nonCollapsedCells)
+        foreach (KeyValuePair<Vector3, List<PieceInfo>> cell in nonCollapsedCells)
         {
-            if (!t && cell.Value.Count > 1)
-            {
-                t = true;
-                lowestEntropyCell = cell.Key;
-            }
-            if (cell.Value.Count == 1)
-            {
-                alreadyCollapsedCells.Add(cell.Key);
-            }
-            else if (cell.Value.Count < nonCollapsedCells[lowestEntropyCell].Count)
+            if (lowestEntropyValue == -1)
             {
                 lowestEntropyCell = cell.Key;
+                lowestEntropyValue = cell.Value.Count;
+            }
+            else
+            {
+                if(cell.Value.Count == 1)
+                    alreadyCollapsedCells.Add(cell.Key);
+                else if(cell.Value.Count < lowestEntropyValue)
+                {
+                    lowestEntropyValue = cell.Value.Count;
+                    lowestEntropyCell = cell.Key;
+                }
             }
         }
 
         for (int i = 0; i < alreadyCollapsedCells.Count; i++)
         {
-
-            InstantiatePiece(alreadyCollapsedCells[i], nonCollapsedCells[alreadyCollapsedCells[i]][0].piecePrefab);
+            //Debug.Log("Instantiating an already collapsed cell at: " + alreadyCollapsedCells[i] + " with piece: " + nonCollapsedCells[alreadyCollapsedCells[i]][0].name);
+            InstantiatePiece(alreadyCollapsedCells[i], nonCollapsedCells[alreadyCollapsedCells[i]][0]);
             nonCollapsedCells.Remove(alreadyCollapsedCells[i]);
         }
 
+        entropyValue = lowestEntropyValue;
         return lowestEntropyCell;
     }
-
-
-
 }
 

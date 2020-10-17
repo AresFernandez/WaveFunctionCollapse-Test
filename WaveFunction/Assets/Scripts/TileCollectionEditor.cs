@@ -15,6 +15,7 @@ public class TileCollectionEditor : Editor
     int numberOfSelectedPieces;
 
     GUIStyle bgColor;
+    PieceDatabase pieceDatabase;
 
     void OnEnable()
     {
@@ -49,6 +50,14 @@ public class TileCollectionEditor : Editor
         EditorGUILayout.LabelField("Tile Collection", header);
 
         EditorGUILayout.Space(20);
+
+        pieceDatabase = EditorGUILayout.ObjectField("Piece Database", pieceDatabase, typeof(PieceDatabase), true) as PieceDatabase;
+
+        if (!pieceDatabase)
+            return;
+
+        EditorGUILayout.Space(20);
+
         numberOfSelectedPieces = 0;
         for (int i = 0; i < selectedPieces.Length; i++)
             if (selectedPieces[i])
@@ -116,7 +125,7 @@ public class TileCollectionEditor : Editor
 
     private void AddPiecesButton()
     {
-        TileCollectionEditorWindow.Open(tileCollection, this);
+        TileCollectionEditorWindow.Open(tileCollection, this, pieceDatabase);
     }
 
     private void RemovePiecesButton()
@@ -205,14 +214,16 @@ public class TileCollectionEditorWindow : EditorWindow
 
     Vector2 scrollPos;
     int width;
+    PieceDatabase pieceDatabase;
 
-    public static void Open(TileCollection _tileCollection, TileCollectionEditor _tileCollectionEditor)
+    public static void Open(TileCollection _tileCollection, TileCollectionEditor _tileCollectionEditor, PieceDatabase _pieceDatabase)
     {
         TileCollectionEditorWindow window = GetWindow<TileCollectionEditorWindow>("Add new pieces");
         window.tileCollection = _tileCollection;
         window.tileCollectionEditor = _tileCollectionEditor;
 
-        window.allPieces = Resources.FindObjectsOfTypeAll(typeof(PieceInfo)) as PieceInfo[];
+        window.pieceDatabase = _pieceDatabase;
+        window.allPieces = _pieceDatabase.allPieces;
         window.availablePieces = new List<PieceInfo>();
 
         for (int i = 0; i < window.allPieces.Length; i++)
