@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
+  m_Name: NEW Wall 0
+  m_EditorClassIdentifier: 
+  piecePrefab: {fileID: 6049150354955976696, guid: ff1cbc80213bd854a9d762756b432964, type: 3}
+  rotation: 0
+  topPieces:
+  - {fileID: 11400000, guid: 8f91c5835008dd4429e8126cd1f073da, type: 2}
+  - {fileID: 11400000}
+  botPieces:
+  - {fileID: 11400000}
+  rightPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: afffd91c9a317dc49a2dc5eb17680031, type: 2}
+  leftPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 7148e13f121c9c84c91dcfb8c3b0471e, type: 2}
+  frontPieces:
+  - {fileID: 11400000, guid: 2d04d3c7f72956c4c95bf21ea9becbd7, type: 2}
+  backPieces:
+  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  - {fileID: 11400000, guid: 4a250975384d7934bb5872ba5678da75, type: 2}

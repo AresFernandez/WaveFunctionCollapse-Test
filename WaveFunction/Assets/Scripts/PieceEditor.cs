@@ -6,18 +6,22 @@ using System.Linq;
 
 public class PieceEditor : EditorWindow
 {
-    static Transform root;
+    public static PieceEditor Instance
+    {
+        get { return GetWindow<PieceEditor>(); }
+    }
+    Transform root;
 
-    static PieceInfo[] allPieces;
-    static int currentPieceIndex;
+    PieceInfo[] allPieces;
+    int currentPieceIndex;
 
     bool showPieces = true;
 
     Editor pieceEditor;
     PieceDatabase pieceDatabase;
 
-    static GameObject instantiatedPreviewPiece;
-    static float numberOfPiecesForRow = 4;
+    GameObject instantiatedPreviewPiece;
+    float numberOfPiecesForRow = 4;
 
    [MenuItem("Tools/Piece Editor")]
     static void Init()
@@ -51,11 +55,7 @@ public class PieceEditor : EditorWindow
 
         if(allPieces == null)
         {
-            allPieces = pieceDatabase.allPieces;
-            currentPieceIndex = 0;
-            pieceEditor = Editor.CreateEditor(allPieces[currentPieceIndex].piecePrefab);
-            DeleteAllSpawnedPieces();
-            SpawnPieces();
+            RefreshAll();
         }
 
         EditorGUILayout.Space(10);
@@ -85,6 +85,11 @@ public class PieceEditor : EditorWindow
         }
 
         //EditorGUILayout.LabelField("Current Pìece: " + allPieces[currentPieceIndex].name, bold);
+
+        EditorGUILayout.Space(15);
+
+        if(GUILayout.Button("Force refresh"))
+            RefreshAll();
 
         EditorGUILayout.Space(15);
 
@@ -121,7 +126,7 @@ public class PieceEditor : EditorWindow
         DestroyImmediate(root.gameObject);
     }
 
-    private static void CreateRoot()
+    private void CreateRoot()
     {
         GameObject pieceEditorRoot = GameObject.Find("PieceEditor");
         if (pieceEditorRoot == null)
@@ -160,13 +165,13 @@ public class PieceEditor : EditorWindow
         SceneView.FrameLastActiveSceneView();
     }
 
-    private static void DeleteAllSpawnedPieces()
+    private void DeleteAllSpawnedPieces()
     {
         DestroyImmediate(root.gameObject);
         CreateRoot();
     }
 
-    private static void SpawnPieces()
+    private void SpawnPieces()
     {
         if(root != null)
         {
@@ -185,7 +190,7 @@ public class PieceEditor : EditorWindow
         }
     }
 
-    private static GameObject SpawnPiece(PieceInfo _piece, Vector3 _position, bool _spawnSides)
+    private GameObject SpawnPiece(PieceInfo _piece, Vector3 _position, bool _spawnSides)
     {
         GameObject spawnedPiece = Instantiate(_piece.piecePrefab, _position, _piece.piecePrefab.transform.rotation, root);
         spawnedPiece.transform.eulerAngles += new Vector3(0, 0, 90) * _piece.rotation; 
@@ -205,7 +210,7 @@ public class PieceEditor : EditorWindow
         return spawnedPiece;
     }
 
-    private static void SpawnPieceSide(GameObject _parent, PieceInfo _currentPiece, PiecesSideOnSceneEditor.Side _side)
+    private void SpawnPieceSide(GameObject _parent, PieceInfo _currentPiece, PiecesSideOnSceneEditor.Side _side)
     {
         GameObject pieceSide = new GameObject();
         pieceSide.transform.parent = _parent.transform;
@@ -284,7 +289,16 @@ public class PieceEditor : EditorWindow
             root.GetChild(i).gameObject.SetActive(_show);
     }
 
-    public static void RefreshWindow()
+    private void RefreshAll()
+    {
+        allPieces = pieceDatabase.allPieces;
+        currentPieceIndex = 0;
+        pieceEditor = Editor.CreateEditor(allPieces[currentPieceIndex].piecePrefab);
+        DeleteAllSpawnedPieces();
+        SpawnPieces();
+    }
+
+    public void RefreshWindow()
     {
         DeleteAllSpawnedPieces();
         SpawnPieces();

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
+  m_Name: NEW WallCorner 1
+  m_EditorClassIdentifier: 
+  piecePrefab: {fileID: 133004221712336157, guid: 9866f256cb5d85140824ccee0062e4da, type: 3}
+  rotation: 1
+  topPieces:
+  - {fileID: 11400000, guid: 77006b428322fac4292f3d1c48bf5d15, type: 2}
+  - {fileID: 11400000}
+  botPieces:
+  - {fileID: 11400000}
+  rightPieces:
+  - {fileID: 11400000, guid: 5fe85c7c53bacaa4aaa7a112a01bca44, type: 2}
+  leftPieces:
+  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  - {fileID: 11400000, guid: 4a250975384d7934bb5872ba5678da75, type: 2}
+  frontPieces:
+  - {fileID: 11400000, guid: ebd46161f4dd11148a2da382b1b13780, type: 2}
+  backPieces:
+  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  - {fileID: 11400000, guid: 4a250975384d7934bb5872ba5678da75, type: 2}

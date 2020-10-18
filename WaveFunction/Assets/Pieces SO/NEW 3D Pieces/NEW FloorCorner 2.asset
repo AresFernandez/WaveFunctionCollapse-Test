@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
+  m_Name: NEW FloorCorner 2
+  m_EditorClassIdentifier: 
+  piecePrefab: {fileID: 1688792513747961650, guid: 907733b2d405e5941ba4be1daa1d0b0f, type: 3}
+  rotation: 2
+  topPieces:
+  - {fileID: 11400000, guid: 914ffaa61f351c541b66b77000201e74, type: 2}
+  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  - {fileID: 11400000, guid: 1c82a6a4e7d62af458025304b731800e, type: 2}
+  botPieces:
+  - {fileID: 11400000, guid: b4c5f0e1f62b7804aa5cfdd4add64bc5, type: 2}
+  rightPieces:
+  - {fileID: 11400000, guid: 2b399ad2dd30dfb45884b1db80575908, type: 2}
+  - {fileID: 11400000, guid: 33bdd3c8b083478408cc9adafd5a65f8, type: 2}
+  leftPieces:
+  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  - {fileID: 11400000, guid: 2c902618faee4534db0120ea98e0089c, type: 2}
+  frontPieces:
+  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  - {fileID: 11400000, guid: 2c902618faee4534db0120ea98e0089c, type: 2}
+  backPieces:
+  - {fileID: 11400000, guid: 77006b428322fac4292f3d1c48bf5d15, type: 2}
+  - {fileID: 11400000, guid: c296ca986d3efd44b8995d2bec10dfbc, type: 2}

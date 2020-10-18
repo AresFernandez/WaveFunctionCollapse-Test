@@ -204,7 +204,7 @@ public class PiecesSideOnSceneEditor : MonoBehaviour
 
             if (pieceSide.piece == pieceSide.pieceOnSceneEditorScript.piece)
             {
-                PieceEditor.RefreshWindow();
+                PieceEditor.Instance.RefreshWindow();
                 return;
             }
         }

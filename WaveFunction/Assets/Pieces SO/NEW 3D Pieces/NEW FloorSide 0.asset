@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
+  m_Name: NEW FloorSide 0
+  m_EditorClassIdentifier: 
+  piecePrefab: {fileID: 290448889101516649, guid: 8e1dd18425deb3d45bbc957deedf12ad, type: 3}
+  rotation: 0
+  topPieces:
+  - {fileID: 11400000, guid: 914ffaa61f351c541b66b77000201e74, type: 2}
+  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  - {fileID: 11400000, guid: 1c82a6a4e7d62af458025304b731800e, type: 2}
+  botPieces:
+  - {fileID: 11400000, guid: 5fe85c7c53bacaa4aaa7a112a01bca44, type: 2}
+  rightPieces:
+  - {fileID: 11400000, guid: 79153819ae0c55742a986766c8315c9f, type: 2}
+  - {fileID: 11400000}
+  leftPieces:
+  - {fileID: 11400000, guid: 77006b428322fac4292f3d1c48bf5d15, type: 2}
+  - {fileID: 11400000}
+  frontPieces:
+  - {fileID: 11400000, guid: bfa219ddf30ff9d419b5efa1ea5346f6, type: 2}
+  - {fileID: 11400000, guid: 33bdd3c8b083478408cc9adafd5a65f8, type: 2}
+  backPieces:
+  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  - {fileID: 11400000, guid: 2c902618faee4534db0120ea98e0089c, type: 2}

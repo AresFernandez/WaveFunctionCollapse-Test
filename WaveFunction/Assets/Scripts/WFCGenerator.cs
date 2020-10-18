@@ -14,8 +14,6 @@ public class WFCGenerator : MonoBehaviour
 
     Dictionary<Vector3, List<PieceInfo>> nonCollapsedCells;
 
-    public PieceInfo emptyPiece;
-
     enum Direction { TOP, BOT, RIGHT, LEFT, FRONT, BACK };
 
     struct CellLink
