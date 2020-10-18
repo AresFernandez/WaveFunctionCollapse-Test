@@ -10,31 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
-  m_Name: NEW FloorCorner 1
+  m_Name: NEW BridgeCorner 2
   m_EditorClassIdentifier: 
-  piecePrefab: {fileID: 1688792513747961650, guid: 907733b2d405e5941ba4be1daa1d0b0f, type: 3}
-  rotation: 1
+  piecePrefab: {fileID: 4560965414188856171, guid: 331a0b8c56167d949a884436197f57b5, type: 3}
+  rotation: 2
   topPieces:
-  - {fileID: 11400000, guid: 914ffaa61f351c541b66b77000201e74, type: 2}
   - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
-  - {fileID: 11400000, guid: 1c82a6a4e7d62af458025304b731800e, type: 2}
   botPieces:
-  - {fileID: 11400000, guid: 7148e13f121c9c84c91dcfb8c3b0471e, type: 2}
+  - {fileID: 11400000, guid: 4a250975384d7934bb5872ba5678da75, type: 2}
   rightPieces:
-  - {fileID: 11400000, guid: 79153819ae0c55742a986766c8315c9f, type: 2}
-  - {fileID: 11400000, guid: 8f91c5835008dd4429e8126cd1f073da, type: 2}
-  leftPieces:
-  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  - {fileID: 11400000, guid: 8a06f35d013295743900e6374323276c, type: 2}
   - {fileID: 11400000, guid: 2c902618faee4534db0120ea98e0089c, type: 2}
+  leftPieces:
   - {fileID: 11400000, guid: fb64af54ae81fee408d2a0c77c6964e0, type: 2}
   - {fileID: 11400000, guid: 008e7c0ae7acd184bba5ac3e280f018d, type: 2}
   - {fileID: 11400000, guid: 218fc9b98e9e9604c96e973387ac80df, type: 2}
+  - {fileID: 11400000, guid: 79153819ae0c55742a986766c8315c9f, type: 2}
+  - {fileID: 11400000, guid: 2b399ad2dd30dfb45884b1db80575908, type: 2}
+  - {fileID: 11400000, guid: a8babc316b3607842b0da33d8c24a695, type: 2}
   frontPieces:
-  - {fileID: 11400000, guid: 9682f54603e336c4c9239c93828b80dd, type: 2}
-  - {fileID: 11400000, guid: c296ca986d3efd44b8995d2bec10dfbc, type: 2}
-  backPieces:
-  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  - {fileID: 11400000, guid: 8a06f35d013295743900e6374323276c, type: 2}
   - {fileID: 11400000, guid: 2c902618faee4534db0120ea98e0089c, type: 2}
+  backPieces:
   - {fileID: 11400000, guid: d902986096dcba64ebd0849df2ab5727, type: 2}
-  - {fileID: 11400000, guid: 008e7c0ae7acd184bba5ac3e280f018d, type: 2}
   - {fileID: 11400000, guid: b052d652d2fb0b84c90cdde5418c3f61, type: 2}
+  - {fileID: 11400000, guid: 9682f54603e336c4c9239c93828b80dd, type: 2}
+  - {fileID: 11400000, guid: 2b399ad2dd30dfb45884b1db80575908, type: 2}
+  - {fileID: 11400000, guid: 33bdd3c8b083478408cc9adafd5a65f8, type: 2}

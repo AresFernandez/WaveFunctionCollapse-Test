@@ -32,3 +32,6 @@ MonoBehaviour:
   backPieces:
   - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
   - {fileID: 11400000, guid: 2c902618faee4534db0120ea98e0089c, type: 2}
+  - {fileID: 11400000, guid: d902986096dcba64ebd0849df2ab5727, type: 2}
+  - {fileID: 11400000, guid: 008e7c0ae7acd184bba5ac3e280f018d, type: 2}
+  - {fileID: 11400000, guid: b052d652d2fb0b84c90cdde5418c3f61, type: 2}

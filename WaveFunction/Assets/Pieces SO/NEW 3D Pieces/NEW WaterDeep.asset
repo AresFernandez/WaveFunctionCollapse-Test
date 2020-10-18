@@ -19,6 +19,12 @@ MonoBehaviour:
   - {fileID: 11400000}
   - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
   - {fileID: 11400000, guid: 8a06f35d013295743900e6374323276c, type: 2}
+  - {fileID: 11400000, guid: d902986096dcba64ebd0849df2ab5727, type: 2}
+  - {fileID: 11400000, guid: fb64af54ae81fee408d2a0c77c6964e0, type: 2}
+  - {fileID: 11400000, guid: 008e7c0ae7acd184bba5ac3e280f018d, type: 2}
+  - {fileID: 11400000, guid: 218fc9b98e9e9604c96e973387ac80df, type: 2}
+  - {fileID: 11400000, guid: 339be972c515d0f4998df22f8e2e9bea, type: 2}
+  - {fileID: 11400000, guid: b052d652d2fb0b84c90cdde5418c3f61, type: 2}
   botPieces:
   - {fileID: 11400000}
   rightPieces:

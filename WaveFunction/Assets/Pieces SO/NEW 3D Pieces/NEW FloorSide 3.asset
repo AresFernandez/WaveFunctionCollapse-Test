@@ -23,6 +23,9 @@ MonoBehaviour:
   rightPieces:
   - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
   - {fileID: 11400000, guid: 2c902618faee4534db0120ea98e0089c, type: 2}
+  - {fileID: 11400000, guid: fb64af54ae81fee408d2a0c77c6964e0, type: 2}
+  - {fileID: 11400000, guid: 339be972c515d0f4998df22f8e2e9bea, type: 2}
+  - {fileID: 11400000, guid: b052d652d2fb0b84c90cdde5418c3f61, type: 2}
   leftPieces:
   - {fileID: 11400000, guid: bfa219ddf30ff9d419b5efa1ea5346f6, type: 2}
   - {fileID: 11400000, guid: c296ca986d3efd44b8995d2bec10dfbc, type: 2}

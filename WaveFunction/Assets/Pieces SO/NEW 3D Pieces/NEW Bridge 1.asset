@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
+  m_Name: NEW Bridge 1
+  m_EditorClassIdentifier: 
+  piecePrefab: {fileID: 2468674688867206064, guid: bc4823d0cf6eac84081831da81d5d9cb, type: 3}
+  rotation: 1
+  topPieces:
+  - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
+  botPieces:
+  - {fileID: 11400000, guid: 4a250975384d7934bb5872ba5678da75, type: 2}
+  rightPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 339be972c515d0f4998df22f8e2e9bea, type: 2}
+  - {fileID: 11400000, guid: b052d652d2fb0b84c90cdde5418c3f61, type: 2}
+  - {fileID: 11400000, guid: 9682f54603e336c4c9239c93828b80dd, type: 2}
+  - {fileID: 11400000, guid: 77006b428322fac4292f3d1c48bf5d15, type: 2}
+  - {fileID: 11400000, guid: c296ca986d3efd44b8995d2bec10dfbc, type: 2}
+  leftPieces:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 008e7c0ae7acd184bba5ac3e280f018d, type: 2}
+  - {fileID: 11400000, guid: 218fc9b98e9e9604c96e973387ac80df, type: 2}
+  - {fileID: 11400000, guid: 2b399ad2dd30dfb45884b1db80575908, type: 2}
+  - {fileID: 11400000, guid: 79153819ae0c55742a986766c8315c9f, type: 2}
+  - {fileID: 11400000, guid: a8babc316b3607842b0da33d8c24a695, type: 2}
+  frontPieces:
+  - {fileID: 11400000, guid: 8a06f35d013295743900e6374323276c, type: 2}
+  - {fileID: 11400000, guid: 2c902618faee4534db0120ea98e0089c, type: 2}
+  backPieces:
+  - {fileID: 11400000, guid: 8a06f35d013295743900e6374323276c, type: 2}
+  - {fileID: 11400000, guid: 2c902618faee4534db0120ea98e0089c, type: 2}
