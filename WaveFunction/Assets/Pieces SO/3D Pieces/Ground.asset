@@ -29,23 +29,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fc49e29a69f6ab249b966d7cdfec8284, type: 2}
   - {fileID: 11400000, guid: ad2600c74fe3a3641bd449f44ef2d6e2, type: 2}
   - {fileID: 11400000}
-  - {fileID: 11400000}
   botPieces:
   - {fileID: 11400000}
-  - {fileID: 11400000}
   rightPieces:
-  - {fileID: 11400000}
-  - {fileID: 11400000}
   - {fileID: 11400000, guid: ea402610110f1b040b18f39358021e21, type: 2}
+  - {fileID: 11400000}
   leftPieces:
-  - {fileID: 11400000}
-  - {fileID: 11400000}
   - {fileID: 11400000, guid: 9b6ca7d3659c1db46ab408c3d0f5d5b7, type: 2}
+  - {fileID: 11400000}
   frontPieces:
-  - {fileID: 11400000}
-  - {fileID: 11400000}
   - {fileID: 11400000, guid: e9881d94527ce3147aa7f97426cc3aa2, type: 2}
+  - {fileID: 11400000}
   backPieces:
-  - {fileID: 11400000}
-  - {fileID: 11400000}
   - {fileID: 11400000, guid: eadf850894a570e4ea9ac2920b450338, type: 2}
+  - {fileID: 11400000}

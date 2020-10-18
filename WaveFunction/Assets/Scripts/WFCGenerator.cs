@@ -68,7 +68,7 @@ public class WFCGenerator : MonoBehaviour
      void OnDrawGizmos()
      {
         Handles.color = Color.white;
-        if(nonCollapsedCells.Count > 0)
+        if(nonCollapsedCells != null && nonCollapsedCells.Count > 0)
             foreach(KeyValuePair<Vector3, List<PieceInfo>> cell in nonCollapsedCells)
                 Handles.Label(cell.Key, cell.Key + " / " + cell.Value.Count);
      }

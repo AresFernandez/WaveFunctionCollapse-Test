@@ -201,6 +201,12 @@ public class PiecesSideOnSceneEditor : MonoBehaviour
                 instantiatedPiece.transform.eulerAngles += new Vector3(0, 0, 90) * pieceSide.piece.rotation;
                 pieceSide.spawned = true;
             }
+
+            if (pieceSide.piece == pieceSide.pieceOnSceneEditorScript.piece)
+            {
+                PieceEditor.RefreshWindow();
+                return;
+            }
         }
         else if((gizmoType & GizmoType.NonSelected) != 0 && pieceSide.selected)
         {
