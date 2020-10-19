@@ -17,6 +17,18 @@ MonoBehaviour:
   topPieces:
   - {fileID: 11400000, guid: bfa219ddf30ff9d419b5efa1ea5346f6, type: 2}
   - {fileID: 11400000}
+  - {fileID: 11400000, guid: 0428d79e7f0c68144b41961e907b0221, type: 2}
+  - {fileID: 11400000, guid: c7797b77cbb390d4999a525b2cf4d9a0, type: 2}
+  - {fileID: 11400000, guid: cf983974aaa683f44b9747ae0a37caa4, type: 2}
+  - {fileID: 11400000, guid: 4159aff87c2a1714f99b9a3e29a1c167, type: 2}
+  - {fileID: 11400000, guid: b5d1025d53fa17a48b15ab3684861602, type: 2}
+  - {fileID: 11400000, guid: 4dcef41f7d69cc24b991504959593ad0, type: 2}
+  - {fileID: 11400000, guid: 38983dcf39b6c5c41a579d641e4eefec, type: 2}
+  - {fileID: 11400000, guid: ce536365749fb454e9ecab5a768f9844, type: 2}
+  - {fileID: 11400000, guid: b0d2e1b4f9ef9454e97b47f467a21c81, type: 2}
+  - {fileID: 11400000, guid: 1ff20dcd22bf2d04fbc0daccb4af735b, type: 2}
+  - {fileID: 11400000, guid: 6ffcaac8cd89d7e439c46bed4f4a3155, type: 2}
+  - {fileID: 11400000, guid: cf75b82adca36404e81556bd359bdaad, type: 2}
   botPieces:
   - {fileID: 11400000}
   rightPieces:

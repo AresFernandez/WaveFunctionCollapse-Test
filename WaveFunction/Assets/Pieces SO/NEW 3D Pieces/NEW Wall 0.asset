@@ -30,3 +30,8 @@ MonoBehaviour:
   backPieces:
   - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
   - {fileID: 11400000, guid: 4a250975384d7934bb5872ba5678da75, type: 2}
+  - {fileID: 11400000, guid: 0428d79e7f0c68144b41961e907b0221, type: 2}
+  - {fileID: 11400000, guid: c7797b77cbb390d4999a525b2cf4d9a0, type: 2}
+  - {fileID: 11400000, guid: 4dcef41f7d69cc24b991504959593ad0, type: 2}
+  - {fileID: 11400000, guid: 38983dcf39b6c5c41a579d641e4eefec, type: 2}
+  - {fileID: 11400000, guid: 6ffcaac8cd89d7e439c46bed4f4a3155, type: 2}

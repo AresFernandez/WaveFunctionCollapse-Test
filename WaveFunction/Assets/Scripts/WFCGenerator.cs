@@ -10,12 +10,6 @@ public struct Cell
 {
     public Vector3 position;
     public PieceInfo piece;
-
-    public Cell(Vector3 _position, PieceInfo _piece)
-    {
-        position = _position;
-        piece = _piece;
-    }
 }
 
 public class WFCGenerator : MonoBehaviour
@@ -27,18 +21,15 @@ public class WFCGenerator : MonoBehaviour
     Dictionary<Vector3, List<PieceInfo>> nonCollapsedCells;
     List<Cell> cells;
 
+    public bool useSeed;
+    public int seed;
+
     enum Direction { TOP, BOT, RIGHT, LEFT, FRONT, BACK };
 
     struct CellLink
     {
         public Vector3 cellPosition;
         public Direction comingFrom;
-
-        public CellLink(Vector3 _cellPosition, Direction _comingFrom)
-        {
-            cellPosition = _cellPosition;
-            comingFrom = _comingFrom;
-        }
     }
 
     //Queue  <  cellPosition , comingFrom  >
@@ -47,6 +38,10 @@ public class WFCGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!useSeed)
+            seed = Random.Range(0, 1000);
+        Random.InitState(seed);
+
         nonCollapsedCells = new Dictionary<Vector3, List<PieceInfo>>();
         Vector3[] cellPositions = grid.Calculate3DGridPositions();
 
@@ -99,38 +94,38 @@ public class WFCGenerator : MonoBehaviour
         nonCollapsedCells[cellPosition].Clear();
         nonCollapsedCells[cellPosition].Add(selectedPiece);
 
-        cells.Add(new Cell(cellPosition, selectedPiece));
+        cells.Add(new Cell() { position = cellPosition, piece = selectedPiece });
 
         //Add to Queue of affected pieces
         //top
         if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(0, grid.cellSize, 0)))
         {
-            affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(0, grid.cellSize, 0), Direction.BOT));
+            affectedPieces.Enqueue(new CellLink() { cellPosition = cellPosition + new Vector3(0, grid.cellSize, 0), comingFrom = Direction.BOT });
         }
         //bot
         if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(0, -grid.cellSize, 0)))
         {
-            affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(0, -grid.cellSize, 0), Direction.TOP));
+            affectedPieces.Enqueue(new CellLink() { cellPosition = cellPosition + new Vector3(0, -grid.cellSize, 0), comingFrom = Direction.TOP });
         }
         //right
         if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(grid.cellSize, 0, 0)))
         {
-            affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(grid.cellSize, 0, 0), Direction.LEFT));
+            affectedPieces.Enqueue(new CellLink() { cellPosition = cellPosition + new Vector3(grid.cellSize, 0, 0), comingFrom = Direction.LEFT });
         }
         //left
         if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(-grid.cellSize, 0, 0)))
         {
-            affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(-grid.cellSize, 0, 0), Direction.RIGHT));
+            affectedPieces.Enqueue(new CellLink() { cellPosition = cellPosition + new Vector3(-grid.cellSize, 0, 0), comingFrom = Direction.RIGHT });
         }
         //front
         if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(0, 0, grid.cellSize)))
         {
-            affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(0, 0, grid.cellSize), Direction.BACK));
+            affectedPieces.Enqueue(new CellLink() { cellPosition = cellPosition + new Vector3(0, 0, grid.cellSize), comingFrom = Direction.BACK });
         }
         //back
         if (nonCollapsedCells.ContainsKey(cellPosition + new Vector3(0, 0, -grid.cellSize)))
         {
-            affectedPieces.Enqueue(new CellLink(cellPosition + new Vector3(0, 0, -grid.cellSize), Direction.FRONT));
+            affectedPieces.Enqueue(new CellLink() { cellPosition = cellPosition + new Vector3(0, 0, -grid.cellSize), comingFrom = Direction.FRONT });
         }
 
         //Propagate recursively?
@@ -153,6 +148,9 @@ public class WFCGenerator : MonoBehaviour
 
     void InstantiatePiece(Cell _cell)
     {
+        if (_cell.piece.piecePrefab.name == "Empty")
+            return;
+
         GameObject newPiece = Instantiate<GameObject>(_cell.piece.piecePrefab, _cell.position, _cell.piece.piecePrefab.transform.rotation, transform);
         newPiece.transform.position -= new Vector3(0, grid.cellSize / 2.0f, 0);
         newPiece.transform.eulerAngles += new Vector3(0, 0, 90) * _cell.piece.rotation;
@@ -271,32 +269,32 @@ public class WFCGenerator : MonoBehaviour
             //top
             if (affectedCell.comingFrom != Direction.TOP && nonCollapsedCells.ContainsKey(affectedCell.cellPosition + new Vector3(0, grid.cellSize, 0)))
             {
-                affectedPieces.Enqueue(new CellLink(affectedCell.cellPosition + new Vector3(0, grid.cellSize, 0), Direction.BOT));
+                affectedPieces.Enqueue(new CellLink() { cellPosition = affectedCell.cellPosition + new Vector3(0, grid.cellSize, 0), comingFrom = Direction.BOT });
             }
             //bot
             if (affectedCell.comingFrom != Direction.BOT && nonCollapsedCells.ContainsKey(affectedCell.cellPosition + new Vector3(0, -grid.cellSize, 0)))
             {
-                affectedPieces.Enqueue(new CellLink(affectedCell.cellPosition + new Vector3(0, -grid.cellSize, 0), Direction.TOP));
+                affectedPieces.Enqueue(new CellLink() { cellPosition = affectedCell.cellPosition + new Vector3(0, -grid.cellSize, 0), comingFrom = Direction.TOP });
             }
             //right
             if (affectedCell.comingFrom != Direction.RIGHT && nonCollapsedCells.ContainsKey(affectedCell.cellPosition + new Vector3(grid.cellSize, 0, 0)))
             {
-                affectedPieces.Enqueue(new CellLink(affectedCell.cellPosition + new Vector3(grid.cellSize, 0, 0), Direction.LEFT));
+                affectedPieces.Enqueue(new CellLink() { cellPosition = affectedCell.cellPosition + new Vector3(grid.cellSize, 0, 0), comingFrom = Direction.LEFT });
             }
             //left
             if (affectedCell.comingFrom != Direction.LEFT && nonCollapsedCells.ContainsKey(affectedCell.cellPosition + new Vector3(-grid.cellSize, 0, 0)))
             {
-                affectedPieces.Enqueue(new CellLink(affectedCell.cellPosition + new Vector3(-grid.cellSize, 0, 0), Direction.RIGHT));
+                affectedPieces.Enqueue(new CellLink() { cellPosition = affectedCell.cellPosition + new Vector3(-grid.cellSize, 0, 0), comingFrom = Direction.RIGHT });
             }
             //front 
             if (affectedCell.comingFrom != Direction.FRONT && nonCollapsedCells.ContainsKey(affectedCell.cellPosition + new Vector3(0, 0, grid.cellSize)))
             {
-                affectedPieces.Enqueue(new CellLink(affectedCell.cellPosition + new Vector3(0, 0, grid.cellSize), Direction.BACK));
+                affectedPieces.Enqueue(new CellLink() { cellPosition = affectedCell.cellPosition + new Vector3(0, 0, grid.cellSize), comingFrom = Direction.BACK });
             }
             //back
             if (affectedCell.comingFrom != Direction.BACK && nonCollapsedCells.ContainsKey(affectedCell.cellPosition + new Vector3(0, 0, -grid.cellSize)))
             {
-                affectedPieces.Enqueue(new CellLink(affectedCell.cellPosition + new Vector3(0, 0, -grid.cellSize), Direction.FRONT));
+                affectedPieces.Enqueue(new CellLink() { cellPosition = affectedCell.cellPosition + new Vector3(0, 0, -grid.cellSize), comingFrom = Direction.FRONT });
             }
         }
     }
@@ -328,8 +326,8 @@ public class WFCGenerator : MonoBehaviour
 
         for (int i = 0; i < alreadyCollapsedCells.Count; i++)
         {
-            if(nonCollapsedCells[alreadyCollapsedCells[i]][0] != null)
-                cells.Add(new Cell(alreadyCollapsedCells[i], nonCollapsedCells[alreadyCollapsedCells[i]][0]));
+            if (nonCollapsedCells[alreadyCollapsedCells[i]][0] != null)
+                cells.Add(new Cell() { position = alreadyCollapsedCells[i], piece = nonCollapsedCells[alreadyCollapsedCells[i]][0] });
             nonCollapsedCells.Remove(alreadyCollapsedCells[i]);
         }
 

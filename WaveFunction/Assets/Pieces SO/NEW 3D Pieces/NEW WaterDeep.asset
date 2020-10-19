@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
   m_Name: NEW WaterDeep
   m_EditorClassIdentifier: 
-  piecePrefab: {fileID: 1487423331438575952, guid: ffe8fa635a37fb94fb915a92a22e009c, type: 3}
+  piecePrefab: {fileID: 5656484427841091077, guid: 3ecf8c5d81ef3ef4a93db7745a6ea350, type: 3}
   rotation: 0
   topPieces:
   - {fileID: 11400000, guid: 2c902618faee4534db0120ea98e0089c, type: 2}

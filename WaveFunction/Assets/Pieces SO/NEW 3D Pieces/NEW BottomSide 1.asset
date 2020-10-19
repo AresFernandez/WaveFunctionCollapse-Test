@@ -10,28 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94a1cd6a873fff0489e18975f3bb2e6d, type: 3}
-  m_Name: NEW Wall 1
+  m_Name: NEW BottomSide 1
   m_EditorClassIdentifier: 
-  piecePrefab: {fileID: 6049150354955976696, guid: ff1cbc80213bd854a9d762756b432964, type: 3}
+  piecePrefab: {fileID: 683608310988465874, guid: 7d4cc104000ada64db6424a7d9a1117d, type: 3}
   rotation: 1
   topPieces:
-  - {fileID: 11400000, guid: c296ca986d3efd44b8995d2bec10dfbc, type: 2}
-  - {fileID: 11400000}
-  botPieces:
-  - {fileID: 11400000}
-  rightPieces:
-  - {fileID: 11400000, guid: 2d04d3c7f72956c4c95bf21ea9becbd7, type: 2}
-  leftPieces:
   - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
-  - {fileID: 11400000, guid: 4a250975384d7934bb5872ba5678da75, type: 2}
+  botPieces:
+  - {fileID: 11400000, guid: 2d04d3c7f72956c4c95bf21ea9becbd7, type: 2}
+  rightPieces:
   - {fileID: 11400000, guid: c7797b77cbb390d4999a525b2cf4d9a0, type: 2}
-  - {fileID: 11400000, guid: cf983974aaa683f44b9747ae0a37caa4, type: 2}
-  - {fileID: 11400000, guid: 38983dcf39b6c5c41a579d641e4eefec, type: 2}
   - {fileID: 11400000, guid: ce536365749fb454e9ecab5a768f9844, type: 2}
-  - {fileID: 11400000, guid: 1ff20dcd22bf2d04fbc0daccb4af735b, type: 2}
+  - {fileID: 11400000}
+  leftPieces:
+  - {fileID: 11400000, guid: 0428d79e7f0c68144b41961e907b0221, type: 2}
+  - {fileID: 11400000, guid: b5d1025d53fa17a48b15ab3684861602, type: 2}
+  - {fileID: 11400000}
   frontPieces:
-  - {fileID: 11400000}
-  - {fileID: 11400000, guid: b4c5f0e1f62b7804aa5cfdd4add64bc5, type: 2}
-  backPieces:
-  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 5fe85c7c53bacaa4aaa7a112a01bca44, type: 2}
+  - {fileID: 11400000, guid: afffd91c9a317dc49a2dc5eb17680031, type: 2}
   - {fileID: 11400000, guid: 7148e13f121c9c84c91dcfb8c3b0471e, type: 2}
+  backPieces:
+  - {fileID: 11400000, guid: bfa219ddf30ff9d419b5efa1ea5346f6, type: 2}

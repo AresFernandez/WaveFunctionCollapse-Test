@@ -24,12 +24,16 @@ MonoBehaviour:
   rightPieces:
   - {fileID: 11400000}
   - {fileID: 11400000, guid: a8babc316b3607842b0da33d8c24a695, type: 2}
+  - {fileID: 11400000, guid: 1ff20dcd22bf2d04fbc0daccb4af735b, type: 2}
   leftPieces:
   - {fileID: 11400000}
   - {fileID: 11400000, guid: c296ca986d3efd44b8995d2bec10dfbc, type: 2}
+  - {fileID: 11400000, guid: b0d2e1b4f9ef9454e97b47f467a21c81, type: 2}
   frontPieces:
   - {fileID: 11400000}
   - {fileID: 11400000, guid: 33bdd3c8b083478408cc9adafd5a65f8, type: 2}
+  - {fileID: 11400000, guid: 6ffcaac8cd89d7e439c46bed4f4a3155, type: 2}
   backPieces:
   - {fileID: 11400000}
   - {fileID: 11400000, guid: 8f91c5835008dd4429e8126cd1f073da, type: 2}
+  - {fileID: 11400000, guid: cf75b82adca36404e81556bd359bdaad, type: 2}
