@@ -15,6 +15,11 @@ public class Grid : MonoBehaviour
 
     Vector3[] cubeVertexs;
 
+    public int CalculateGridSize()
+    {
+        return height * width * depth;
+    }
+
     public Vector3[] CalculateGridPositions()
     {
         Vector3[] gridPositions = new Vector3[height * width];
