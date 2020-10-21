@@ -6,23 +6,21 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 
-public struct Cell
-{
-    public Vector3 position;
-    public PieceInfo piece;
-}
 
-public class WFCGenerator : MonoBehaviour
+
+public abstract class WFCGenerator : MonoBehaviour
 {
     public Grid grid;
 
     [SerializeField] TileCollection tileCollection;
 
-    Dictionary<Vector3, List<PieceInfo>> nonCollapsedCells;
-    List<Cell> cells;
+    protected Dictionary<Vector3, List<PieceInfo>> nonCollapsedCells;
+    protected Dictionary<Vector3, PieceInfo> cells;
 
     public bool useSeed;
     public int seed;
+
+    //public Vector3[] piecesToSpawnPos;
 
     enum Direction { TOP, BOT, RIGHT, LEFT, FRONT, BACK };
 
@@ -45,7 +43,7 @@ public class WFCGenerator : MonoBehaviour
         nonCollapsedCells = new Dictionary<Vector3, List<PieceInfo>>();
         Vector3[] cellPositions = grid.Calculate3DGridPositions();
 
-        cells = new List<Cell>();
+        cells = new Dictionary<Vector3, PieceInfo>();
 
         List<PieceInfo> allPieces = new List<PieceInfo>();
         for (int i = 0; i < tileCollection.piecesOnCollection.Length; i++)
@@ -57,8 +55,8 @@ public class WFCGenerator : MonoBehaviour
         }
 
         // We select the first cell randomly because at the begginning they have all the same entropy
-        Vector3 randomPosition = grid.GetRandom3DPosition();
-        SelectPiece(randomPosition);
+        Vector3 startPosition = SelectFirstCell();
+        SelectPiece(startPosition);
 
         // We keep collapsing cells priorizing those with the lowest entropy
         int entropyValue = 0;
@@ -75,26 +73,23 @@ public class WFCGenerator : MonoBehaviour
             Debug.LogError("ERROR ON GENERATION");
         else
         {
-            foreach (Cell cell in cells)
-                InstantiatePiece(cell);
+            foreach (KeyValuePair<Vector3, PieceInfo> cell in cells)
+                InstantiatePiece(cell.Key, cell.Value);
         }
     }
 
-     void OnDrawGizmos()
-     {
-        //Handles.color = Color.white;
-        //if(nonCollapsedCells != null && nonCollapsedCells.Count > 0)
-        //    foreach(KeyValuePair<Vector3, List<PieceInfo>> cell in nonCollapsedCells)
-        //        Handles.Label(cell.Key, cell.Key + " / " + cell.Value.Count);
-     }
+    virtual protected Vector3 SelectFirstCell()
+    {
+        return grid.GetRandom3DPosition();
+    }
 
     void SelectPiece(Vector3 cellPosition)
     {
-        PieceInfo selectedPiece = nonCollapsedCells[cellPosition][Random.Range(0, nonCollapsedCells[cellPosition].Count)];
+        PieceInfo selectedPiece = SelectPiece(cellPosition, nonCollapsedCells[cellPosition].ToArray()); 
         nonCollapsedCells[cellPosition].Clear();
         nonCollapsedCells[cellPosition].Add(selectedPiece);
 
-        cells.Add(new Cell() { position = cellPosition, piece = selectedPiece });
+        cells.Add(cellPosition, selectedPiece);
 
         //Add to Queue of affected pieces
         //top
@@ -146,14 +141,19 @@ public class WFCGenerator : MonoBehaviour
         nonCollapsedCells.Remove(cellPosition);
     }
 
-    void InstantiatePiece(Cell _cell)
+    virtual protected PieceInfo SelectPiece(Vector3 _position, PieceInfo[] _pieces)
     {
-        if (_cell.piece.piecePrefab.name == "Empty")
+        return _pieces[Random.Range(0, _pieces.Length)];
+    }
+
+    void InstantiatePiece(Vector3 _position, PieceInfo _piece)
+    {
+        if (_piece.piecePrefab.name == "Empty")
             return;
 
-        GameObject newPiece = Instantiate<GameObject>(_cell.piece.piecePrefab, _cell.position, _cell.piece.piecePrefab.transform.rotation, transform);
+        GameObject newPiece = Instantiate<GameObject>(_piece.piecePrefab, _position, _piece.piecePrefab.transform.rotation, transform);
         newPiece.transform.position -= new Vector3(0, grid.cellSize / 2.0f, 0);
-        newPiece.transform.eulerAngles += new Vector3(0, 0, 90) * _cell.piece.rotation;
+        newPiece.transform.eulerAngles += new Vector3(0, 0, 90) * _piece.rotation;
     }
 
     void Propagate(CellLink affectedCell)
@@ -327,12 +327,20 @@ public class WFCGenerator : MonoBehaviour
         for (int i = 0; i < alreadyCollapsedCells.Count; i++)
         {
             if (nonCollapsedCells[alreadyCollapsedCells[i]][0] != null)
-                cells.Add(new Cell() { position = alreadyCollapsedCells[i], piece = nonCollapsedCells[alreadyCollapsedCells[i]][0] });
+                cells.Add(alreadyCollapsedCells[i], nonCollapsedCells[alreadyCollapsedCells[i]][0]);
             nonCollapsedCells.Remove(alreadyCollapsedCells[i]);
         }
 
         entropyValue = lowestEntropyValue;
         return lowestEntropyCell;
+    }
+
+    void OnDrawGizmos()
+    {
+        //Handles.color = Color.white;
+        //if(nonCollapsedCells != null && nonCollapsedCells.Count > 0)
+        //    foreach(KeyValuePair<Vector3, List<PieceInfo>> cell in nonCollapsedCells)
+        //        Handles.Label(cell.Key, cell.Key + " / " + cell.Value.Count);
     }
 }
 

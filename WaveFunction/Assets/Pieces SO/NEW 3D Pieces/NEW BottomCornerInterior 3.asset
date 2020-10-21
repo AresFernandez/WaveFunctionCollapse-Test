@@ -19,7 +19,7 @@ MonoBehaviour:
   botPieces:
   - {fileID: 11400000, guid: 2d04d3c7f72956c4c95bf21ea9becbd7, type: 2}
   rightPieces:
-  - {fileID: 11400000, guid: ebd46161f4dd11148a2da382b1b13780, type: 2}
+  - {fileID: 11400000, guid: bfa219ddf30ff9d419b5efa1ea5346f6, type: 2}
   leftPieces:
   - {fileID: 11400000, guid: b5d1025d53fa17a48b15ab3684861602, type: 2}
   - {fileID: 11400000, guid: 6ffcaac8cd89d7e439c46bed4f4a3155, type: 2}
@@ -27,4 +27,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 38983dcf39b6c5c41a579d641e4eefec, type: 2}
   - {fileID: 11400000, guid: b0d2e1b4f9ef9454e97b47f467a21c81, type: 2}
   backPieces:
-  - {fileID: 11400000, guid: 49ce1c8ae51df6247a5ef1c0f6505b6b, type: 2}
+  - {fileID: 11400000, guid: bfa219ddf30ff9d419b5efa1ea5346f6, type: 2}
