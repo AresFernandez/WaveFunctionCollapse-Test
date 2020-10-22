@@ -2295,19 +2295,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 250376230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22856ebea4b858948a968eb0f93f636e, type: 3}
+  m_Script: {fileID: 11500000, guid: 76ed123cc7354b2498ba4529a5965816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1126352977}
   tileCollection: {fileID: 11400000, guid: fbb8a6e404b1bd447bec73062dac245c, type: 2}
   useSeed: 0
-  seed: 0
-  piecesToSpawnPos:
-  - {x: 2.99, y: 0, z: 2.06}
-  - {x: 3.99, y: 0, z: 2.06}
-  - {x: 4.99, y: 0, z: 2.06}
-  - {x: 5.99, y: 0, z: 2.06}
-  - {x: 6.99, y: 0, z: 2.06}
+  seed: 882
+  ground: {fileID: 11400000, guid: 2d04d3c7f72956c4c95bf21ea9becbd7, type: 2}
+  sky: {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
 --- !u!4 &250376232
 Transform:
   m_ObjectHideFlags: 0
@@ -10322,7 +10318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridBottomLeft: {fileID: 1126352978}
-  height: 2
+  height: 5
   width: 20
   depth: 20
   cellSize: 1

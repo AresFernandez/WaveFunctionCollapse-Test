@@ -83,7 +83,7 @@ public abstract class WFCGenerator : MonoBehaviour
         return grid.GetRandom3DPosition();
     }
 
-    void SelectPiece(Vector3 cellPosition)
+    protected void SelectPiece(Vector3 cellPosition)
     {
         PieceInfo selectedPiece = SelectPiece(cellPosition, nonCollapsedCells[cellPosition].ToArray()); 
         nonCollapsedCells[cellPosition].Clear();
@@ -124,7 +124,7 @@ public abstract class WFCGenerator : MonoBehaviour
         }
 
         //Propagate recursively?
-        int safeCounter = 0;
+        //int safeCounter = 0;
         while (affectedPieces.Count > 0)
         {
             //safeCounter++;

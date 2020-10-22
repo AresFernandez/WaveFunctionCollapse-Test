@@ -10,6 +10,16 @@ public class WFCTest : WFCGenerator
 
     protected override Vector3 SelectFirstCell()
     {
+        for (int i = 0; i < grid.width; i++)
+        {
+            for (int j = 0; j < grid.depth; j++)
+            {
+                nonCollapsedCells[new Vector3(i, grid.height - 1, j)].Clear();
+                nonCollapsedCells[new Vector3(i, grid.height - 1, j)].Add(sky);
+                SelectPiece(new Vector3(i, grid.height - 1, j));
+            }
+        }
+
 
         return Vector3.zero;
     }
