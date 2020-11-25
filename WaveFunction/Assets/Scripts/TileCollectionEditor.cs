@@ -39,6 +39,9 @@ public class TileCollectionEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        base.OnInspectorGUI();
+        return;
+        
         GUIStyle header = new GUIStyle("BoldLabel")
         {
             fontSize = 25,
@@ -97,6 +100,7 @@ public class TileCollectionEditor : Editor
 
     private void DrawPiece(int _position, GUIStyle _boldStyle)
     {
+        /*
         EditorGUILayout.BeginHorizontal("box");
         EditorGUILayout.BeginVertical();
 
@@ -121,6 +125,7 @@ public class TileCollectionEditor : Editor
         //pieceEditors[_position].OnInteractivePreviewGUI(GUILayoutUtility.GetRect(100, 100), new GUIStyle());
 
         EditorGUILayout.EndHorizontal();
+        */
     }
 
     private void AddPiecesButton()
@@ -134,9 +139,9 @@ public class TileCollectionEditor : Editor
         {
             string piecesSelectedNames = "";
 
-            for (int i = 0; i < selectedPieces.Length; i++)
+            /*for (int i = 0; i < selectedPieces.Length; i++)
                 if (selectedPieces[i])
-                    piecesSelectedNames += "Piece: " + tileCollection.piecesOnCollection[i].piece.name + "\n";
+                    piecesSelectedNames += "Piece: " + tileCollection.piecesOnCollection[i].piece.name + "\n";*/
 
             if (EditorUtility.DisplayDialog("Remove all this pieces?", piecesSelectedNames, "Yes", "Cancel"))
                 RemoveSelectedPieces();
@@ -145,6 +150,7 @@ public class TileCollectionEditor : Editor
 
     private void RemoveSelectedPieces()
     {
+        /*
         List<PieceInCollection> piecesToKeep = new List<PieceInCollection>();
         for(int i = 0; i < tileCollection.piecesOnCollection.Length; i++)
         {
@@ -159,6 +165,7 @@ public class TileCollectionEditor : Editor
         UpdateSelectedPieces();
 
         EditorUtility.SetDirty(tileCollection);
+        */
     }
 
     private bool AnyPieceSelected()
@@ -178,6 +185,7 @@ public class TileCollectionEditor : Editor
 
     public void AddPieces(List<PieceInfo> _piecesToAdd)
     {
+        /*
         PieceInCollection[] finalPieces = new PieceInCollection[tileCollection.piecesOnCollection.Length + _piecesToAdd.Count];
 
         for (int i = 0; i < tileCollection.piecesOnCollection.Length; i++)
@@ -191,6 +199,7 @@ public class TileCollectionEditor : Editor
         UpdateSelectedPieces();
 
         EditorUtility.SetDirty(tileCollection);
+        */
     }
 
     private void SelectAll(bool _value)
@@ -231,11 +240,13 @@ public class TileCollectionEditorWindow : EditorWindow
             bool contains = false;
             for(int j = 0; j < window.tileCollection.piecesOnCollection.Length; j++)
             {
+                /*
                 if(window.allPieces[i] == window.tileCollection.piecesOnCollection[j].piece)
                 {
                     contains = true;
                     break;
                 }
+                */
             }
 
             if(!contains)
@@ -360,11 +371,13 @@ public class TileCollectionEditorWindow : EditorWindow
             bool contains = false;
             for(int j = 0; j < tileCollection.piecesOnCollection.Length; j++)
             {
+                /*
                 if(allPieces[i] == tileCollection.piecesOnCollection[j].piece)
                 {
                     contains = true;
                     break;
                 }
+                */
             }
 
             if (!contains)

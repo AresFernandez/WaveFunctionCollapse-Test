@@ -12,7 +12,7 @@ public abstract class WFCGenerator : MonoBehaviour
 {
     public Grid grid;
 
-    [SerializeField] TileCollection tileCollection;
+    [SerializeField] private TileCollection tileCollection;
 
     protected Dictionary<Vector3, List<PieceInfo>> nonCollapsedCells;
     protected Dictionary<Vector3, PieceInfo> cells;
@@ -20,26 +20,51 @@ public abstract class WFCGenerator : MonoBehaviour
     public bool useSeed;
     public int seed;
 
-    //public Vector3[] piecesToSpawnPos;
+    protected bool errorOnGeneration;
+    [SerializeField] private bool iterateUntilGenerationIsCompleted;
+    [SerializeField] private int maxNumberOfIterations;
+    private int numberOfIterations = 0;
 
-    enum Direction { TOP, BOT, RIGHT, LEFT, FRONT, BACK };
+    private enum Direction { TOP, BOT, RIGHT, LEFT, FRONT, BACK };
 
-    struct CellLink
+    private struct CellLink
     {
         public Vector3 cellPosition;
         public Direction comingFrom;
     }
 
-    //Queue  <  cellPosition , comingFrom  >
     Queue<CellLink> affectedPieces = new Queue<CellLink>();
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (!useSeed)
-            seed = Random.Range(0, 1000);
-        Random.InitState(seed);
+        {
+            SetRandomSeed();
+        }
+        else
+        {
+            Random.InitState(seed);
+        }
+        
+        while (!GenerateMap())
+        {
+            SetRandomSeed();
+            errorOnGeneration = false;
+            if (iterateUntilGenerationIsCompleted) continue;
 
+            numberOfIterations++;
+            if (numberOfIterations >= maxNumberOfIterations)
+            {
+                return;
+            }
+        }
+        
+        InstantiateMap();
+    }
+
+    private bool GenerateMap()
+    {
+        Debug.Log("Current seed: " + seed);
         nonCollapsedCells = new Dictionary<Vector3, List<PieceInfo>>();
         Vector3[] cellPositions = grid.Calculate3DGridPositions();
 
@@ -47,7 +72,7 @@ public abstract class WFCGenerator : MonoBehaviour
 
         List<PieceInfo> allPieces = new List<PieceInfo>();
         for (int i = 0; i < tileCollection.piecesOnCollection.Length; i++)
-            allPieces.Add(tileCollection.piecesOnCollection[i].piece);
+            allPieces.Add(tileCollection.piecesOnCollection[i]);
 
         for (int i = 0; i < cellPositions.Length; i++)
         {
@@ -59,25 +84,40 @@ public abstract class WFCGenerator : MonoBehaviour
         SelectPiece(startPosition);
 
         // We keep collapsing cells priorizing those with the lowest entropy
-        int entropyValue = 0;
         Vector3 lowestEntropyCell = Vector3.zero;
         while (nonCollapsedCells.Count > 0)
         {
-            lowestEntropyCell = SearchForLowerEntropy(out entropyValue);
+            lowestEntropyCell = SearchForLowerEntropy(out int entropyValue);
 
             if(entropyValue != -1)
                 SelectPiece(lowestEntropyCell);
+            
+            if (errorOnGeneration)
+            {
+                nonCollapsedCells.Clear();
+                cells.Clear();
+                return false;
+            }
         }
 
-        if (cells.Count != grid.CalculateGridSize())
-            Debug.LogError("ERROR ON GENERATION");
-        else
-        {
-            foreach (KeyValuePair<Vector3, PieceInfo> cell in cells)
-                InstantiatePiece(cell.Key, cell.Value);
-        }
+        if (cells.Count == grid.CalculateGridSize()) return true;
+        
+        Debug.LogError("ERROR ON GENERATION");
+        return false;
     }
 
+    private void InstantiateMap()
+    {
+        foreach (KeyValuePair<Vector3, PieceInfo> cell in cells)
+            InstantiatePiece(cell.Key, cell.Value);
+    }
+
+    private void SetRandomSeed()
+    {
+        seed = Random.Range(int.MinValue, int.MaxValue);
+        Random.InitState(seed);
+    }
+    
     virtual protected Vector3 SelectFirstCell()
     {
         return grid.GetRandom3DPosition();
@@ -85,7 +125,12 @@ public abstract class WFCGenerator : MonoBehaviour
 
     protected void SelectPiece(Vector3 cellPosition)
     {
-        PieceInfo selectedPiece = SelectPiece(cellPosition, nonCollapsedCells[cellPosition].ToArray()); 
+        PieceInfo selectedPiece = SelectPiece(cellPosition, nonCollapsedCells[cellPosition].ToArray());
+        if (selectedPiece == null)
+        {
+            errorOnGeneration = true;
+            return;
+        }
         nonCollapsedCells[cellPosition].Clear();
         nonCollapsedCells[cellPosition].Add(selectedPiece);
 

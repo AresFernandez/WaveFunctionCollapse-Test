@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TileCollection", menuName = "", order = 1)]
 public class TileCollection : ScriptableObject
 {
-    public PieceInCollection[] piecesOnCollection;
+    public PieceInfo[] piecesOnCollection;
 }
 
 [System.Serializable]

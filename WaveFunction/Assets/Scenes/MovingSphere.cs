@@ -88,8 +88,6 @@ public class MovingSphere : MonoBehaviour
         }
 
         desiredJump |= Input.GetButtonDown("Jump");
-
-
     }
 
     private void FixedUpdate()

@@ -14,14 +14,23 @@ public class WFCTest : WFCGenerator
         {
             for (int j = 0; j < grid.depth; j++)
             {
+                nonCollapsedCells[new Vector3(i, 0, j)].Clear();
+                nonCollapsedCells[new Vector3(i, 0, j)].Add(ground);
+                SelectPiece(new Vector3(i, 0, j));
+            }
+        }
+
+        for (int i = 0; i < grid.width; i++)
+        {
+            for (int j = 0; j < grid.depth; j++)
+            {
                 nonCollapsedCells[new Vector3(i, grid.height - 1, j)].Clear();
                 nonCollapsedCells[new Vector3(i, grid.height - 1, j)].Add(sky);
                 SelectPiece(new Vector3(i, grid.height - 1, j));
             }
         }
 
-
-        return Vector3.zero;
+        return new Vector3(0, 1, 0);
     }
 
     protected override PieceInfo SelectPiece(Vector3 _position, PieceInfo[] _pieces)
@@ -45,6 +54,12 @@ public class WFCTest : WFCGenerator
                 return ground;
         }
 
-        return _pieces[Random.Range(0, _pieces.Length)];
+        if (_pieces.Length != 0)
+        {
+            return _pieces[Random.Range(0, _pieces.Length)];
+        }
+
+        errorOnGeneration = true;
+        return null;
     }
 }

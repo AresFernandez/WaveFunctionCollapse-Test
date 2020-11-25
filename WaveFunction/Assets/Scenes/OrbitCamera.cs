@@ -7,6 +7,8 @@ public class OrbitCamera : MonoBehaviour
     [SerializeField]
     Transform focus = default;
 
+    [SerializeField] private Vector3 offset;
+
     [SerializeField, Range(1f, 20f)]
     float distance = 5f;
 
@@ -54,8 +56,11 @@ public class OrbitCamera : MonoBehaviour
     private void Awake()
     {
         regularCamera = GetComponent<Camera>();
-        focusPoint = focus.position;
+        focusPoint = focus.position + offset;
         transform.localRotation = Quaternion.Euler(orbitAngles);
+        
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 
@@ -76,7 +81,7 @@ public class OrbitCamera : MonoBehaviour
 
         Vector3 rectOffset = lookDirection * regularCamera.nearClipPlane;
         Vector3 rectPosition = lookPosition + rectOffset;
-        Vector3 castFrom = focus.position;
+        Vector3 castFrom = focus.position + offset;
         Vector3 castLine = rectPosition - castFrom;
         float castDistance = castLine.magnitude;
         Vector3 castDirection = castLine / castDistance;
@@ -102,7 +107,7 @@ public class OrbitCamera : MonoBehaviour
     void UpdateFocusPoint()
     {
         previousFocusPoint = focusPoint;
-        Vector3 targetPoint = focus.position;
+        Vector3 targetPoint = focus.position + offset;
         if (focusRadius > 0f)
         {
             float distance = Vector3.Distance(targetPoint, focusPoint);
@@ -161,7 +166,9 @@ public class OrbitCamera : MonoBehaviour
         {
             rotationChange *= (180f - deltaAbs) / alignSmoothRange;
         }
+        Quaternion playerRotation = focus.rotation;
         orbitAngles.y = Mathf.MoveTowardsAngle(orbitAngles.y, headingAngle, rotationChange);
+        focus.rotation = playerRotation;
         return true;
     }
 
