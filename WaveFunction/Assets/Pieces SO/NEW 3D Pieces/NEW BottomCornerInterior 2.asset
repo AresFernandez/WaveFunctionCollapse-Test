@@ -21,10 +21,8 @@ MonoBehaviour:
   rightPieces:
   - {fileID: 11400000, guid: bfa219ddf30ff9d419b5efa1ea5346f6, type: 2}
   leftPieces:
-  - {fileID: 11400000, guid: 4dcef41f7d69cc24b991504959593ad0, type: 2}
   - {fileID: 11400000, guid: cf75b82adca36404e81556bd359bdaad, type: 2}
   frontPieces:
   - {fileID: 11400000, guid: bfa219ddf30ff9d419b5efa1ea5346f6, type: 2}
   backPieces:
-  - {fileID: 11400000, guid: ce536365749fb454e9ecab5a768f9844, type: 2}
   - {fileID: 11400000, guid: b0d2e1b4f9ef9454e97b47f467a21c81, type: 2}

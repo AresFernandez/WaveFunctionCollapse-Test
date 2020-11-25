@@ -6,6 +6,7 @@
     <e p="D:\Ignasi\PersonalProjects\WaveFunctionCollapse-Test\WaveFunction" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="CameraRotator.cs" t="Include" />
         <e p="Scenes" t="Include">
           <e p="MovingSphere.cs" t="Include" />
           <e p="OrbitCamera.cs" t="Include" />
