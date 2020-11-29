@@ -24,6 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
   - {fileID: 11400000, guid: b0d2e1b4f9ef9454e97b47f467a21c81, type: 2}
   - {fileID: 11400000, guid: bfa219ddf30ff9d419b5efa1ea5346f6, type: 2}
+  - {fileID: 11400000, guid: 4a250975384d7934bb5872ba5678da75, type: 2}
   leftPieces:
   - {fileID: 11400000, guid: 5fe85c7c53bacaa4aaa7a112a01bca44, type: 2}
   frontPieces:
@@ -32,3 +33,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1d0045a5ccf0cf945945242b03c41393, type: 2}
   - {fileID: 11400000, guid: 6ffcaac8cd89d7e439c46bed4f4a3155, type: 2}
   - {fileID: 11400000, guid: bfa219ddf30ff9d419b5efa1ea5346f6, type: 2}
+  - {fileID: 11400000, guid: 4a250975384d7934bb5872ba5678da75, type: 2}
